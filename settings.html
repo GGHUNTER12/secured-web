@@ -31,11 +31,11 @@
     <!-- Top Floating Menu -->
     <header class="top-menu">
         <div class="logo">
-            <a href="#">SECURED WEB</a>
+            <a href="https://gghunter12.github.io/secured-web">SECURED WEB</a>
         </div>
         <nav>
             <ul>
-                <li><a href="#" class="menu-button">🏠 Home</a></li>
+                <li><a href="https://gghunter12.github.io/secured-web" class="menu-button">🏠 Home</a></li>
                 <li><a href="#" class="menu-button">🎮 Games</a></li>
                 <li><a href="#" class="menu-button">📜 About</a></li>
                 <li><a href="#" class="menu-button">⚙️ Settings</a></li>
@@ -56,9 +56,13 @@
 
     <script>
         function openAboutBlank() {
-            var iframe = document.getElementById('about-blank-frame');
-            iframe.style.display = 'block'; // Show the iframe
-            iframe.src = "https://gghunter12.github.io/secured-web"; // Load the URL
+            var newWindow = window.open('about:blank', '_blank');
+            var iframe = newWindow.document.createElement('iframe');
+            iframe.style.width = "100%";
+            iframe.style.height = "100%";
+            iframe.style.border = "none";
+            iframe.src = "https://gghunter12.github.io/secured-web"; // Load the URL inside the iframe
+            newWindow.document.body.appendChild(iframe);
         }
     </script>
 
