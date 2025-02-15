@@ -1,4 +1,3 @@
-// Initialize Particles.js
 particlesJS("particles-js", {
     particles: {
         number: { value: 80, density: { enable: true, value_area: 800 } },
@@ -15,10 +14,3 @@ particlesJS("particles-js", {
         }
     }
 });
-
-// Wait for window to load
-window.onload = function() {
-    // Hide loading screen after everything is loaded
-    document.getElementById('loading-screen').style.display = 'none';
-    document.getElementById('main-content').style.display = 'block';
-};
