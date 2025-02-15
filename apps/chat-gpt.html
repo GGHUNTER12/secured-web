@@ -8,12 +8,18 @@
     <link rel="stylesheet" href="/secured-web/style.css">
     <link rel="stylesheet" href="/secured-web/menu.css">
     <style>
+        .center-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
         .iframe-container {
-            width: 90%;
-            height: 80vh;
+            width: 70%;
+            height: 60vh;
             border-radius: 20px;
             overflow: hidden;
-            margin: auto;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -23,6 +29,9 @@
             height: 100%;
             border-radius: 20px;
             border: none;
+        }
+        .button-container {
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -44,15 +53,17 @@
         </nav>
     </header>
 
-    <!-- Iframe Container -->
-    <div class="iframe-container">
-        <iframe id="app-iframe" src="https://example.com" frameborder="0"></iframe>
-    </div>
+    <!-- Center Box -->
+    <div class="center-box">
+        <div class="iframe-container">
+            <iframe id="app-iframe" src="https://example.com" frameborder="0"></iframe>
+        </div>
 
-    <!-- Buttons -->
-    <div class="button-container">
-        <button onclick="reloadIframe()" class="button">🔄 Reload</button>
-        <button onclick="toggleFullscreen()" class="button">🖥️ Fullscreen</button>
+        <!-- Buttons -->
+        <div class="button-container">
+            <button onclick="reloadIframe()" class="button">🔄 Reload</button>
+            <button onclick="toggleFullscreen()" class="button">🖥️ Fullscreen</button>
+        </div>
     </div>
 
     <script src="/secured-web/particles.js"></script>
