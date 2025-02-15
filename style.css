@@ -149,13 +149,15 @@ button:disabled {
 
 /* Iframe Container */
 .iframe-container {
-    width: 100%;
+    width: 70%;  /* Set the width to a smaller percentage */
     height: 55vh;
+    max-width: 800px;  /* Limit the max-width to make it even smaller */
     border-radius: 15px;
     overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 0 auto;  /* Center the iframe container */
 }
 
 /* Iframe */
