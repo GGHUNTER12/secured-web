@@ -7,6 +7,22 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+
+    <!-- Floating Menu -->
+    <div class="menu">
+        <div class="logo">
+            <a href="index.html">SECURED WEB</a>
+        </div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="settings.html">Settings</a></li>
+            <li><a href="/games">Games</a></li>
+        </ul>
+    </div>
+
+    <!-- Centered Settings Box -->
     <div class="settings-container">
         <h1>Settings</h1>
 
@@ -38,6 +54,25 @@
         </div>
     </div>
 
+    <script src="particles.min.js"></script>
     <script src="settings.js"></script>
+    <script>
+        // Initialize Particles.js
+        particlesJS("particles-js", {
+            particles: {
+                number: { value: 50 },
+                size: { value: 3 },
+                move: { speed: 2 },
+                line_linked: { enable: true, distance: 150, color: "#ffffff" },
+                opacity: { opacity: 0.5 },
+                color: { value: "#ffffff" }
+            },
+            interactivity: {
+                events: {
+                    onhover: { enable: true, mode: "repulse" }
+                }
+            }
+        });
+    </script>
 </body>
 </html>
