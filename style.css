@@ -35,13 +35,27 @@ body {
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-/* Title as Header */
+/* Title as Header with Glowing Effect */
 .title {
     font-size: 4rem;
     color: white;
     text-align: center;
     margin-bottom: 20px;
-    text-shadow: 0 0 10px #00bfff, 0 0 20px #ff00ff, 0 0 30px #ff00ff, 0 0 40px #00bfff;
+    animation: glowing 1.5s infinite alternate;
+    text-shadow: 0 0 10px #00bfff, 0 0 20px #00bfff, 0 0 30px #ff00ff, 0 0 40px #ff00ff, 0 0 50px #ff00ff;
+}
+
+/* Animation for Glowing Effect */
+@keyframes glowing {
+    0% {
+        text-shadow: 0 0 10px #00bfff, 0 0 20px #00bfff, 0 0 30px #ff00ff, 0 0 40px #ff00ff, 0 0 50px #ff00ff;
+    }
+    50% {
+        text-shadow: 0 0 20px #00bfff, 0 0 30px #00bfff, 0 0 40px #ff00ff, 0 0 60px #ff00ff, 0 0 80px #ff00ff;
+    }
+    100% {
+        text-shadow: 0 0 10px #00bfff, 0 0 20px #00bfff, 0 0 30px #ff00ff, 0 0 40px #ff00ff, 0 0 50px #ff00ff;
+    }
 }
 
 /* Description */
