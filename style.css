@@ -1,4 +1,4 @@
-/* Global styles */
+/* Global styles */ 
 * {
     margin: 0;
     padding: 0;
@@ -112,4 +112,37 @@ p {
     width: 50px;
     height: 50px;
     margin-bottom: 5px;
+}
+
+/* Button Styles */
+button {
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: white;
+    font-size: 1.2rem;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Hover Effect */
+button:hover {
+    background: linear-gradient(135deg, #2575fc, #6a11cb);
+    transform: scale(1.05);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+}
+
+/* Focused Button Style */
+button:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(0, 191, 255, 0.7);
+}
+
+/* Disabled Button */
+button:disabled {
+    background: rgba(0, 0, 0, 0.3);
+    cursor: not-allowed;
+    box-shadow: none;
 }
