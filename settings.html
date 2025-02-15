@@ -7,6 +7,15 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600&display=swap">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="menu.css">
+    <style>
+        /* Increased center-box size */
+        .center-box {
+            width: 80%;
+            margin: 50px auto;
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <div id="particles-js"></div>
@@ -30,17 +39,14 @@
         <h1 class="title">Settings</h1>
         <p>This is a setting page, I know</p>
 
-        <!-- Button to open about:blank iframe -->
-        <button onclick="openAboutBlank()">Open Google Classroom</button>
-        
-        <iframe id="about-blank-frame" style="width: 100%; height: 500px; border: none; display: none;"></iframe>
+        <!-- Button to open a new tab with about:blank page -->
+        <button onclick="openAboutBlank()">Open Page in About:Blank</button>
     </div>
 
     <script>
         function openAboutBlank() {
-            var iframe = document.getElementById('about-blank-frame');
-            iframe.style.display = 'block';
-            iframe.src = "https://classroom.google.com"; // Google Classroom URL
+            window.open("about:blank", "_blank"); // Opens in a new tab
+            window.location.href = "https://classroom.google.com"; // Replace with Google Classroom URL
         }
     </script>
 
