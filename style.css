@@ -81,7 +81,7 @@ p {
     align-items: center;
     text-decoration: none;
     background: rgba(255, 255, 255, 0.1); /* More subtle */
-    padding: 20px;
+    padding: 30px;
     border-radius: 20px; /* Cleaner, Rounded corners */
     width: 120px;
     transition: 0.3s;
