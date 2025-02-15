@@ -4,59 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settings</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600&display=swap">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="menu.css">
 </head>
 <body>
-    <!-- Menu Bar -->
-    <div class="menu-container">
-        <ul class="menu">
-            <li><a href="index.html" class="menu-item home"><img src="/home-icon.png" alt="Home"></a></li>
-            <li><a href="games.html" class="menu-item games">Games</a></li>
-            <li><a href="settings.html" class="menu-item settings">Settings</a></li>
-        </ul>
-        <div class="secured-text">
-            <a href="index.html">SECURED WEB</a>
-        </div>
-    </div>
-
-    <!-- Particles.js -->
     <div id="particles-js"></div>
 
-    <!-- Center Box -->
+    <!-- Top Floating Menu -->
+    <header class="top-menu">
+        <div class="logo">
+            <a href="#">SECURED WEB</a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#" class="menu-button">🏠 Home</a></li>
+                <li><a href="#" class="menu-button">🎮 Games</a></li>
+                <li><a href="#" class="menu-button">📜 About</a></li>
+                <li><a href="#" class="menu-button">⚙️ Settings</a></li>
+            </ul>
+        </nav>
+    </header>
+
     <div class="center-box">
-        <h1>Settings</h1>
+        <h1 class="title">Settings</h1>
+        <p>This is a setting page, I know</p>
 
-        <!-- Background Changer -->
-        <div class="setting-option">
-            <h2>Change Background</h2>
-            <label for="bg-color">Background Color (Hex):</label>
-            <input type="text" id="bg-color" placeholder="#000000">
-            <button onclick="changeBackgroundColor()">Apply Color</button>
-
-            <label for="bg-image">Background Image URL:</label>
-            <input type="text" id="bg-image" placeholder="https://example.com/image.jpg">
-            <button onclick="changeBackgroundImage()">Apply Image</button>
-        </div>
-
-        <!-- Panic Button -->
-        <div class="setting-option">
-            <h2>Panic Button</h2>
-            <label for="panic-url">Enter URL to Redirect:</label>
-            <input type="text" id="panic-url" placeholder="https://example.com">
-            <label for="panic-key">Set Panic Key (e.g., "P" or a number):</label>
-            <input type="text" id="panic-key" placeholder="P">
-            <button onclick="setPanicButton()">Save Panic Button</button>
-        </div>
-
-        <!-- Back Button to the Home Page -->
-        <div class="back-button">
-            <a href="index.html">Back to Home</a>
-        </div>
+        <!-- Button to open about:blank iframe -->
+        <button onclick="openAboutBlank()">Open Google Classroom</button>
+        
+        <iframe id="about-blank-frame" style="width: 100%; height: 500px; border: none; display: none;"></iframe>
     </div>
 
-    <script src="settings.js"></script>
+    <script>
+        function openAboutBlank() {
+            var iframe = document.getElementById('about-blank-frame');
+            iframe.style.display = 'block';
+            iframe.src = "https://classroom.google.com"; // Google Classroom URL
+        }
+    </script>
+
+    <script src="particles.js"></script>
     <script src="app.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
 </body>
 </html>
