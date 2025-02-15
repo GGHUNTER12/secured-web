@@ -10,11 +10,48 @@ body {
     background: linear-gradient(135deg, #6a11cb, #2575fc);
     height: 100vh;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
     overflow: hidden;
     color: white;
-    flex-direction: column;
+}
+
+/* Loading Screen Styles */
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 1.5em;
+    font-weight: bold;
+    z-index: 9999;
+}
+
+.loading-text {
+    animation: loading 1s infinite;
+}
+
+@keyframes loading {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+/* Hide the main content initially */
+.main-content {
+    display: none;
 }
 
 /* Particles.js background */
@@ -33,6 +70,8 @@ body {
     text-align: center;
     backdrop-filter: blur(10px);
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    position: relative;
+    margin-top: 80px;
 }
 
 /* App Container */
@@ -44,59 +83,35 @@ body {
     flex-wrap: wrap;
 }
 
-.app {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.app-button {
+    background: linear-gradient(135deg, #ff6a00, #ee0979);
+    padding: 12px 20px;
+    border-radius: 15px;
     text-decoration: none;
-    background: rgba(255, 255, 255, 0.2);
-    padding: 15px;
-    border-radius: 15px;
-    width: 120px;
+    color: white;
+    font-weight: 600;
     transition: 0.3s;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-.app img {
-    width: 60px;
-    height: 60px;
-    object-fit: contain;
-    margin-bottom: 10px;
-}
-
-.app span {
-    color: white;
-    font-weight: 600;
-}
-
-.app:hover {
+.app-button:hover {
     transform: scale(1.1);
-    background: rgba(255, 255, 255, 0.3);
+    background: linear-gradient(135deg, #ee0979, #ff6a00);
 }
 
-/* Discord Widget Style */
-.discord {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: rgba(255, 255, 255, 0.2);
-    padding: 15px;
-    border-radius: 15px;
-    width: 120px;
-    transition: 0.3s;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
-
-.discord-widget {
-    width: 80px;
-    height: 80px;
-    background: #7289da;
-    border-radius: 50%;
-    margin-bottom: 10px;
-}
-
-.discord span {
+/* Menu Buttons (Sleek Design) */
+.menu-button {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px 15px;
+    border-radius: 12px;
+    text-decoration: none;
     color: white;
     font-weight: 600;
-    text-align: center;
+    transition: 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.menu-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
 }
