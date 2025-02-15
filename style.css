@@ -3,10 +3,10 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Lexend', sans-serif;
 }
 
 body {
-    font-family: 'Lexend', sans-serif;
     background: linear-gradient(135deg, #6a11cb, #2575fc);
     height: 100vh;
     display: flex;
@@ -14,6 +14,7 @@ body {
     align-items: center;
     overflow: hidden;
     color: white;
+    flex-direction: column;
 }
 
 /* Particles.js background */
