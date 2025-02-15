@@ -50,12 +50,11 @@
     <script src="/secured-web/particles.js"></script>
     <script src="/secured-web/app.js"></script>
     <script>
-      function reloadIframe() {
-      let iframe = document.getElementById('app-iframe');
-      let src = iframe.src;
-      iframe.src = ''; // Temporarily clear the src
-      iframe.src = src; // Reassign the original src to reload it
-   }
+    function reloadIframe() {
+    let iframe = document.getElementById('app-iframe');
+    iframe.src = iframe.src; // This forces the iframe to reload
+}
+
 
         
         function toggleFullscreen() {
