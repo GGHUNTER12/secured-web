@@ -5,8 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Secured V2 - App</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600&display=swap">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="menu.css">
+    <link rel="stylesheet" href="/secured-web/style.css">
+    <link rel="stylesheet" href="/secured-web/menu.css">
+    <style>
+        .iframe-container {
+            width: 90%;
+            height: 80vh;
+            border-radius: 20px;
+            overflow: hidden;
+            margin: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            border: none;
+        }
+    </style>
 </head>
 <body>
     <div id="particles-js"></div>
@@ -26,24 +44,19 @@
         </nav>
     </header>
 
-    <div class="center-box">
-        <h1 class="title">Secured V2</h1>
-        <p>Welcome to the new site citizens</p>
-
-        <!-- Iframe Container -->
-        <div class="iframe-container">
-            <iframe id="app-iframe" src="" frameborder="0"></iframe>
-        </div>
-
-        <!-- Buttons -->
-        <div class="button-container">
-            <button onclick="reloadIframe()" class="button">🔄 Reload</button>
-            <button onclick="toggleFullscreen()" class="button">🖥️ Fullscreen</button>
-        </div>
+    <!-- Iframe Container -->
+    <div class="iframe-container">
+        <iframe id="app-iframe" src="https://example.com" frameborder="0"></iframe>
     </div>
 
-    <script src="particles.js"></script>
-    <script src="app.js"></script>
+    <!-- Buttons -->
+    <div class="button-container">
+        <button onclick="reloadIframe()" class="button">🔄 Reload</button>
+        <button onclick="toggleFullscreen()" class="button">🖥️ Fullscreen</button>
+    </div>
+
+    <script src="/secured-web/particles.js"></script>
+    <script src="/secured-web/app.js"></script>
     <script>
         function reloadIframe() {
             document.getElementById('app-iframe').src = document.getElementById('app-iframe').src;
