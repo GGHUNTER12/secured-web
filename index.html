@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600&display=swap">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="menu.css">
+    <script src="https://cdn.jsdelivr.net/npm/@widgetbot/crate@3" async defer></script>
 </head>
 <body>
     <div id="particles-js"></div>
@@ -48,10 +49,22 @@
                 <img src="https://eaglercraft.com/logo.png" alt="Eaglercraft">
                 <span>Eaglercraft</span>
             </a>
+            
+            <!-- Discord Widget Button -->
+            <div class="app discord">
+                <div class="discord-widget"></div>
+                <span>Join Discord</span>
+            </div>
         </div>
     </div>
 
-    <script src="particles.js"></script>
-    <script src="app.js"></script>
+    <script>
+        new Crate({
+            server: '1045821677583474808',
+            channel: '1046287752032956537',
+            target: '.discord-widget'
+        });
+    </script>
+
 </body>
 </html>
