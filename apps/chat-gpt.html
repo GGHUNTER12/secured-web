@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secured V2 - App</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600&display=swap">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="menu.css">
+</head>
+<body>
+    <div id="particles-js"></div>
+
+    <!-- Top Floating Menu -->
+    <header class="top-menu">
+        <div class="logo">
+            <a href="#">SECURED WEB</a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#" class="menu-button">🏠 Home</a></li>
+                <li><a href="#" class="menu-button">🎮 Games</a></li>
+                <li><a href="#" class="menu-button">📜 About</a></li>
+                <li><a href="https://gghunter12.github.io/secured-web/settings.html" class="menu-button">⚙️ Settings</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="center-box">
+        <h1 class="title">Secured V2</h1>
+        <p>Welcome to the new site citizens</p>
+
+        <!-- Iframe Container -->
+        <div class="iframe-container">
+            <iframe id="app-iframe" src="" frameborder="0"></iframe>
+        </div>
+
+        <!-- Buttons -->
+        <div class="button-container">
+            <button onclick="reloadIframe()" class="button">🔄 Reload</button>
+            <button onclick="toggleFullscreen()" class="button">🖥️ Fullscreen</button>
+        </div>
+    </div>
+
+    <script src="particles.js"></script>
+    <script src="app.js"></script>
+    <script>
+        function reloadIframe() {
+            document.getElementById('app-iframe').src = document.getElementById('app-iframe').src;
+        }
+        
+        function toggleFullscreen() {
+            let iframe = document.getElementById('app-iframe');
+            if (!document.fullscreenElement) {
+                iframe.requestFullscreen().catch(err => console.log(err));
+            } else {
+                document.exitFullscreen();
+            }
+        }
+    </script>
+
+    <!-- Crate Widget for Discord -->
+    <script src="https://cdn.jsdelivr.net/npm/@widgetbot/crate@3" async defer> 
+        new Crate({
+            server: '1045821677583474808',
+            channel: '1046287752032956537',
+        });
+    </script>
+</body>
+</html>
