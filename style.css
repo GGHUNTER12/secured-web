@@ -16,42 +16,32 @@ body {
     color: white;
 }
 
-/* Loading Screen Styles */
-#loading-screen {
-    position: fixed;
+/* Loading Screen */
+.loading-screen {
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.7);
     display: flex;
     justify-content: center;
     align-items: center;
-    color: white;
-    font-size: 1.5em;
-    font-weight: bold;
-    z-index: 9999;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 10000;
 }
 
-.loading-text {
-    animation: loading 1s infinite;
+.loader {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #6a11cb;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
 }
 
-@keyframes loading {
-    0% {
-        opacity: 0;
-    }
-    50% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-    }
-}
-
-/* Hide the main content initially */
-.main-content {
-    display: none;
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 /* Particles.js background */
@@ -92,6 +82,9 @@ body {
     font-weight: 600;
     transition: 0.3s;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    display: inline-block;
+    min-width: 120px;
+    text-align: center;
 }
 
 .app-button:hover {
