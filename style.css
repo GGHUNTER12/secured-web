@@ -65,55 +65,51 @@ p {
     margin-bottom: 30px;
 }
 
-/* Other existing styles */
+/* App Container */
 .app-container {
+    margin-top: 20px;
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
-    padding: 20px;
+    flex-wrap: wrap;
 }
 
+/* Individual App Container */
 .app {
-    position: relative;
-    width: 150px;
-    height: 150px;
-    border-radius: 15px;
-    overflow: hidden;
-    transition: transform 0.3s ease;
-    text-align: center;
-    background-color: #fff;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.1); /* More subtle */
+    padding: 20px;
+    border-radius: 20px; /* Cleaner, Rounded corners */
+    width: 120px;
+    transition: 0.3s;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
 }
 
 .app img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: opacity 0.3s ease;
-    border-radius: 15px;
-}
-
-.app:hover {
-    transform: scale(1.05);
-}
-
-.app:hover img {
-    opacity: 0.8;
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin-bottom: 10px;
+    border-radius: 10px; /* Rounded images */
 }
 
 .app span {
-    position: absolute;
-    bottom: 10px;
-    left: 0;
-    right: 0;
     color: white;
-    font-size: 18px;
-    font-weight: bold;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    font-weight: 600;
+    text-align: center;
 }
 
-/* Discord Invite Style */
+.app:hover {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Discord App specific styles */
 .discord-img {
-    object-fit: contain;
+    width: 40px;
+    height: 40px;
+    margin-bottom: 5px;
 }
