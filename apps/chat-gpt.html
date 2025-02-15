@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600&display=swap">
     <link rel="stylesheet" href="/secured-web/style.css">
     <link rel="stylesheet" href="/secured-web/menu.css">
+
     <style>
         .center-box {
             width: 80%;
@@ -50,7 +51,8 @@
     <script src="/secured-web/app.js"></script>
     <script>
         function reloadIframe() {
-            document.getElementById('app-iframe').src = document.getElementById('app-iframe').src;
+            let iframe = document.getElementById('app-iframe');
+            iframe.contentWindow.location.reload(); // Reload the iframe content
         }
         
         function toggleFullscreen() {
