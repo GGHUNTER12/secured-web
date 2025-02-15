@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="settings-container">
+        <h1>Settings</h1>
+
+        <!-- Background Changer -->
+        <div class="setting-option">
+            <h2>Change Background</h2>
+            <label for="bg-color">Background Color (Hex):</label>
+            <input type="text" id="bg-color" placeholder="#000000">
+            <button onclick="changeBackgroundColor()">Apply Color</button>
+
+            <label for="bg-image">Background Image URL:</label>
+            <input type="text" id="bg-image" placeholder="https://example.com/image.jpg">
+            <button onclick="changeBackgroundImage()">Apply Image</button>
+        </div>
+
+        <!-- Panic Button -->
+        <div class="setting-option">
+            <h2>Panic Button</h2>
+            <label for="panic-url">Enter URL to Redirect:</label>
+            <input type="text" id="panic-url" placeholder="https://example.com">
+            <label for="panic-key">Set Panic Key (e.g., "P" or a number):</label>
+            <input type="text" id="panic-key" placeholder="P">
+            <button onclick="setPanicButton()">Save Panic Button</button>
+        </div>
+
+        <!-- Back Button to the Home Page -->
+        <div class="back-button">
+            <a href="index.html">Back to Home</a>
+        </div>
+    </div>
+
+    <script src="settings.js"></script>
+</body>
+</html>
