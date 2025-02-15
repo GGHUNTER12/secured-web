@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secured V2</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600&display=swap">
+    <link rel="stylesheet" href="/secured-web/style.css">
+    <link rel="stylesheet" href="/secured-web/menu.css">
+        <style>
+        .center-box {
+            width: 80%;
+            max-width: 1500px;
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+
+    <!-- Top Floating Menu -->
+    <header class="top-menu">
+        <div class="logo">
+            <a href="#">SECURED WEB</a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#" class="menu-button">🏠 Home</a></li>
+                <li><a href="#" class="menu-button">🎮 Games</a></li>
+                <li><a href="#" class="menu-button">📜 About</a></li>
+                <li><a href="https://gghunter12.github.io/secured-web/settings.html" class="menu-button">⚙️ Settings</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="center-box">
+        <h1 class="title">Games Library</h1>
+        <p>Explore and play various games</p>
+        
+        <!-- Search Bar -->
+        <input type="text" id="search-bar" placeholder="Search games..." onkeyup="searchGames()">
+
+        <!-- App Container -->
+        <div class="app-container">
+                        <a href="https://forms.gle/yz51gGeREemdfbE39" class="app">
+                <img src="/secured-web/plus-square.svg" alt="YouTube">
+                <span>Suggest </span>
+            </a>
+            <a href="https://gghunter12.github.io/secured-web/apps/youtube.html" class="app">
+                <img src="/secured-web/youtube.png" alt="YouTube">
+                <span>YouTube</span>
+            </a>
+            <a href="https://gghunter12.github.io/secured-web/apps/chat-gpt.html" class="app">
+                <img src="/secured-web/chatgpt.png" alt="ChatGPT">
+                <span>ChatGPT</span>
+            </a>
+            <a href="https://www.roblox.com" class="app">
+                <img src="/secured-web/roblox.jpg" alt="Roblox">
+                <span>Roblox</span>
+            </a>
+            <a href="https://eaglercraft.com" class="app">
+                <img src="/secured-web/mc.jpg" alt="Eaglercraft">
+                <span>Eaglercraft</span>
+            </a>
+                        <a href="https://eaglercraft.com" class="app">
+                <img src="/secured-web/mc.jpg" alt="Eaglercraft">
+                <span>Eaglercraft</span>
+            </a>
+                        <a href="https://eaglercraft.com" class="app">
+                <img src="/secured-web/mc.jpg" alt="Eaglercraft">
+                <span>Eaglercraft</span>
+            </a>
+                        <a href="https://eaglercraft.com" class="app">
+                <img src="/secured-web/mc.jpg" alt="Eaglercraft">
+                <span>Eaglercraft</span>
+            </a>
+                        <a href="https://eaglercraft.com" class="app">
+                <img src="/secured-web/mc.jpg" alt="Eaglercraft">
+                <span>Eaglercraft</span>
+            </a>            <a href="https://eaglercraft.com" class="app">
+                <img src="/secured-web/mc.jpg" alt="Eaglercraft">
+                <span>Eaglercraft</span>
+            </a>
+                        <a href="https://eaglercraft.com" class="app">
+                <img src="/secured-web/mc.jpg" alt="Eaglercraft">
+                <span>Eaglercraft</span>
+            </a>
+                        <a href="https://eaglercraft.com" class="app">
+                <img src="/secured-web/mc.jpg" alt="Eaglercraft">
+                <span>Eaglercraft</span>
+            </a>
+                        <a href="https://eaglercraft.com" class="app">
+                <img src="/secured-web/mc.jpg" alt="Eaglercraft">
+                <span>Eaglercraft</span>
+            </a>
+                        <a href="https://eaglercraft.com" class="app">
+                <img src="/secured-web/mc.jpg" alt="Eaglercraft">
+                <span>Eaglercraft</span>
+            </a>
+        </div>
+    </div>
+
+    <script src="/secured-web/particles.js"></script>
+    <script src="/secured-web/app.js"></script>
+    
+    <!-- Crate Widget for Discord -->
+    <script src="https://cdn.jsdelivr.net/npm/@widgetbot/crate@3" async defer> 
+        new Crate({
+            server: '1045821677583474808',
+            channel: '1046287752032956537',
+        });
+    </script>
+
+    <script>
+        function searchGames() {
+            let input = document.getElementById('search-bar').value.toLowerCase();
+            let apps = document.querySelectorAll('.app');
+            apps.forEach(app => {
+                let text = app.textContent.toLowerCase();
+                app.style.display = text.includes(input) ? '' : 'none';
+            });
+        }
+    </script>
+</body>
+</html>
