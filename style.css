@@ -222,7 +222,7 @@ iframe {
 /* Partners Container */
 .partners-container {
     display: flex;
-    gap: 30px; /* Increase gap for larger images */
+    gap: 30px; /* Increased gap for larger images */
     justify-content: center;
     align-items: center;
     margin-top: 20px;
@@ -233,6 +233,8 @@ iframe {
     display: inline-block;
     transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for transform and shadow */
     padding: 10px; /* Add some padding to make the button larger */
+    border-radius: 15px; /* Optional: keep the border-radius to match the image */
+    overflow: hidden; /* Make sure the shadow doesn't overflow */
 }
 
 /* Enlarge the images */
@@ -240,10 +242,17 @@ iframe {
     width: 150px; /* Increase the image width */
     height: 150px; /* Make the height equal to the width for a square button */
     object-fit: cover; /* Ensure the image doesn't get stretched */
-    border-radius: 15px; /* Optional: Add rounded corners to the image */
+    border-radius: 15px; /* Add rounded corners to the image */
+    transition: box-shadow 0.3s ease; /* Smooth transition for shadow on image */
 }
 
+/* Hover effect */
 .partner:hover {
     transform: scale(1.2); /* Increase the scaling effect when hovering */
-    box-shadow: 0 0 20px rgba(0, 0, 255, 0.5); /* Larger shadow for more effect */
 }
+
+/* Glow effect on hover */
+.partner:hover img {
+    box-shadow: 0 0 10px rgba(0, 0, 255, 0.7); /* Add a softer glow closer to the image */
+}
+
