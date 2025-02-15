@@ -8,8 +8,9 @@ particlesJS("particles-js", {
         move: { enable: true, speed: 3 }
     },
     interactivity: {
-        events: { onhover: { enable: true, mode: "repulse" } },
-        modes: { repulse: { distance: 100 } }
+        events: { onhover: { enable: true, mode: "bubble" } },
+        modes: { 
+            bubble: { distance: 100, size: 6, opacity: 0.2, speed: 3 }
+        }
     }
 });
-q
