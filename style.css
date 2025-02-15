@@ -34,3 +34,28 @@ body {
     backdrop-filter: blur(10px);
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
 }
+
+/* App Container */
+.app-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.app-button {
+    background: linear-gradient(135deg, #ff6a00, #ee0979);
+    padding: 12px 20px;
+    border-radius: 15px;
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    transition: 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.app-button:hover {
+    transform: scale(1.1);
+    background: linear-gradient(135deg, #ee0979, #ff6a00);
+}
