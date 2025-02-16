@@ -5,13 +5,17 @@ particlesJS("particles-js", {
         shape: { type: "circle" },
         opacity: { value: 0.5, random: false },
         size: { value: 3, random: true },
-        move: { enable: true, speed: 3 }
+        move: { enable: true, speed: 2, out_mode: "bounce" } // Bounce so particles don’t disappear
     },
     interactivity: {
-        detect_on: "canvas", // Ensure it detects mouse interaction on the canvas
-        events: { onhover: { enable: true, mode: "repulse" } },
+        detect_on: "window", // Changed to "window" to cover more areas
+        events: { 
+            onhover: { enable: true, mode: "repulse" },
+            onclick: { enable: true, mode: "push" } // Adds a click effect for debugging
+        },
         modes: { 
-            repulse: { distance: 100, duration: 0.4 }
+            repulse: { distance: 150, duration: 0.6 }, // Increased distance & duration for visibility
+            push: { particles_nb: 4 } // Debugging: clicking will spawn more particles
         }
     }
 });
