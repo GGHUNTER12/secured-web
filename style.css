@@ -35,7 +35,7 @@ body {
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
 }
 
-/* Title as Header with Bold Black Outline and White Glow */
+/* Title as Header with Subtle White Glowing Effect */
 .title {
     font-size: 4rem;
     font-weight: bold; /* Keeps the text bold */
@@ -43,31 +43,19 @@ body {
     text-align: center;
     margin-bottom: 20px;
     animation: glowing 1.5s infinite alternate;
-    text-shadow: 
-        -2px -2px 0 black, 2px -2px 0 black, 
-        -2px 2px 0 black, 2px 2px 0 black, 
-        0 0 15px white, 0 0 30px white, 0 0 45px white, 0 0 60px white, 0 0 75px white;
+    text-shadow: 0 0 5px white, 0 0 10px rgba(255, 255, 255, 0.6), 0 0 15px rgba(255, 255, 255, 0.4);
 }
 
 /* Animation for Glowing Effect */
 @keyframes glowing {
     0% {
-        text-shadow: 
-            -2px -2px 0 black, 2px -2px 0 black, 
-            -2px 2px 0 black, 2px 2px 0 black, 
-            0 0 15px white, 0 0 30px white, 0 0 45px white, 0 0 60px white, 0 0 75px white;
+        text-shadow: 0 0 5px white, 0 0 10px rgba(255, 255, 255, 0.6), 0 0 15px rgba(255, 255, 255, 0.4);
     }
     50% {
-        text-shadow: 
-            -2px -2px 0 black, 2px -2px 0 black, 
-            -2px 2px 0 black, 2px 2px 0 black, 
-            0 0 25px white, 0 0 40px white, 0 0 55px white, 0 0 70px white, 0 0 90px white;
+        text-shadow: 0 0 8px white, 0 0 12px rgba(255, 255, 255, 0.5), 0 0 18px rgba(255, 255, 255, 0.3);
     }
     100% {
-        text-shadow: 
-            -2px -2px 0 black, 2px -2px 0 black, 
-            -2px 2px 0 black, 2px 2px 0 black, 
-            0 0 15px white, 0 0 30px white, 0 0 45px white, 0 0 60px white, 0 0 75px white;
+        text-shadow: 0 0 5px white, 0 0 10px rgba(255, 255, 255, 0.6), 0 0 15px rgba(255, 255, 255, 0.4);
     }
 }
 
