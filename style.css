@@ -230,7 +230,7 @@ iframe {
 
 /* Change text selection color */
 ::selection {
-    background: var(--dynamic-color, white); /* Matches background color */
+    background: var(--dynamic-color, rgba(0, 0, 0, 0.5));
     color: white;
 }
 
@@ -258,4 +258,3 @@ iframe {
     color: #ccc;
     font-weight: 400;
 }
-
