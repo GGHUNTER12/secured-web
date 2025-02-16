@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,8 +7,8 @@
     <title>Secured V2 - Settings</title>
     <link rel="icon" type="image/x-icon" href="images/secured-favicon.png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600&display=swap">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="menu.css">
+    <link rel="stylesheet" href="/secured-web/style.css">
+    <link rel="stylesheet" href="/secured-web/menu.css">
     <style>
         /* Original center-box size */
         .center-box {
@@ -56,17 +57,19 @@
     <div class="styles-section">
         <button onclick="setBackground('linear-gradient(135deg, #ff7eb3, #ff758c)')">Pink Gradient</button>
         <button onclick="setBackground('linear-gradient(135deg, #42e695, #3bb2b8)')">Green Gradient</button>
-        <button onclick="setBackground('linear-gradient(135deg, #6a11cb, #2575fc)')">Blue Gradient</button>
+        <button onclick="setBackground('linear-gradient(135deg, #89CFF0, #A3D8F4)')">Baby Blue Gradient</button>
         <button onclick="setBackground('linear-gradient(135deg, #ff9966, #ff5e62)')">Orange Gradient</button>
         <button onclick="setBackground('linear-gradient(135deg, #ffeb3b, #f44336)')">Sunset Gradient</button>
+        <button onclick="setBackground('linear-gradient(135deg, #000000, #434343)')">Black Gradient</button>
     </div>
 
     <!-- Reset Button -->
     <button class="reset-btn" onclick="resetBackground()">Reset to Default</button>
-        
-        <!-- Iframe that will load https://gghunter12.github.io/secured-web -->
-        <iframe id="about-blank-frame"></iframe>
-    </div>
+
+    <!-- Iframe that will load https://gghunter12.github.io/secured-web -->
+    <iframe id="about-blank-frame"></iframe>
+</div>
+
 
     <script>
         function openAboutBlank() {
@@ -88,8 +91,8 @@
         });
     </script>
 
-    <script src="particles.js"></script>
-    <script src="app.js"></script>
-    <script src="settings.js"></script>
+    <script src="/secured-web/particles.js"></script>
+    <script src="/secured-web/app.js"></script>
+    <script src="/secured-web/settings.js"></script>
 </body>
 </html>
