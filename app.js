@@ -8,6 +8,7 @@ particlesJS("particles-js", {
         move: { enable: true, speed: 3 }
     },
     interactivity: {
+        detect_on: "canvas", // Ensure it detects mouse interaction on the canvas
         events: { onhover: { enable: true, mode: "repulse" } },
         modes: { 
             repulse: { distance: 100, duration: 0.4 }
