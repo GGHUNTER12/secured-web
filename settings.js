@@ -24,3 +24,11 @@ document.addEventListener("DOMContentLoaded", function () {
         body.style.background = "";
     };
 });
+
+// loading.js
+
+window.addEventListener("load", () => {
+    // Hide the loading screen and show the main content
+    document.getElementById("loading-screen").classList.add("hidden");
+    document.getElementById("main-content").style.display = "block";
+});
