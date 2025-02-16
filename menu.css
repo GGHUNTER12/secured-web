@@ -6,11 +6,11 @@
     justify-content: space-between;
     align-items: center;
     padding: 15px 30px;
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(10px);
+    background: rgba(0, 0, 0, 0.5); /* Make it slightly more transparent */
+    backdrop-filter: blur(15px); /* Increase blur for a stronger glass effect */
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); /* Slightly stronger shadow */
     z-index: 1000;
 }
 
