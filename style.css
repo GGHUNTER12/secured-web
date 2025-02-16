@@ -37,8 +37,25 @@ body {
 
 /* Title as Header with Glowing Effect */
 .title {
-    text-shadow: 0 0 10px var(--title-glow), 0 0 20px var(--title-glow);
-    transition: text-shadow 0.3s ease-in-out;
+    font-size: 4rem;
+    color: white;
+    text-align: center;
+    margin-bottom: 20px;
+    animation: glowing 1.5s infinite alternate;
+    text-shadow: 0 0 10px #00bfff, 0 0 20px #00bfff, 0 0 30px #ff00ff, 0 0 40px #ff00ff, 0 0 50px #ff00ff;
+}
+
+/* Animation for Glowing Effect */
+@keyframes glowing {
+    0% {
+        text-shadow: 0 0 10px #00bfff, 0 0 20px #00bfff, 0 0 30px #ff00ff, 0 0 40px #ff00ff, 0 0 50px #ff00ff;
+    }
+    50% {
+        text-shadow: 0 0 20px #00bfff, 0 0 30px #00bfff, 0 0 40px #ff00ff, 0 0 60px #ff00ff, 0 0 80px #ff00ff;
+    }
+    100% {
+        text-shadow: 0 0 10px #00bfff, 0 0 20px #00bfff, 0 0 30px #ff00ff, 0 0 40px #ff00ff, 0 0 50px #ff00ff;
+    }
 }
 
 /* Description */
