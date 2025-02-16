@@ -125,6 +125,7 @@ button {
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    margin: 10px; /* Add space between buttons */
 }
 
 /* Hover Effect */
@@ -185,7 +186,7 @@ iframe {
 }
 
 .button:hover {
-    background: #2980b9;
+    background: #2980b9daw;
 }
 
 /* Search Bar Styling */
