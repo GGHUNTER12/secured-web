@@ -1,4 +1,4 @@
-/* Global styles */   
+/* Global styles */
 * {
     margin: 0;
     padding: 0;
@@ -84,10 +84,19 @@ p {
     padding: 20px;
     border-radius: 20px; /* Cleaner, Rounded corners */
     width: 150px; /* Bigger app containers */
-    transition: 0.3s;
+    transition: 0.3s ease-in-out;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+    position: relative;
 }
 
+/* Floating App Effect */
+.app:hover {
+    transform: translateY(-10px) scale(1.1);
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* App Images */
 .app img {
     width: 100px; /* Bigger images */
     height: 100px;
@@ -96,15 +105,11 @@ p {
     border-radius: 10px; /* Rounded images */
 }
 
+/* App Text */
 .app span {
     color: white;
     font-weight: 600;
     text-align: center;
-}
-
-.app:hover {
-    transform: scale(1.1);
-    background: rgba(255, 255, 255, 0.2);
 }
 
 /* Discord App specific styles */
@@ -135,19 +140,6 @@ button:hover {
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
 }
 
-/* Focused Button Style */
-button:focus {
-    outline: none;
-    box-shadow: 0 0 0 4px rgba(0, 191, 255, 0.7);
-}
-
-/* Disabled Button */
-button:disabled {
-    background: rgba(0, 0, 0, 0.3);
-    cursor: not-allowed;
-    box-shadow: none;
-}
-
 /* Iframe Container */
 .iframe-container {
     width: 100%;
@@ -164,29 +156,6 @@ iframe {
     height: 100%;
     border-radius: 15px;
     border: none;
-}
-
-/* Button Container for Iframe Actions */
-.button-container {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
-
-.button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 10px;
-    background: #3498db;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.button:hover {
-    background: #2980b9daw;
 }
 
 /* Search Bar Styling */
@@ -206,18 +175,6 @@ iframe {
 #search-bar::placeholder {
     color: #ccc;
     font-weight: 400;
-}
-
-/* Search Bar Focus */
-#search-bar:focus {
-    background: rgba(255, 255, 255, 0.3);
-    box-shadow: 0 0 0 4px rgba(0, 191, 255, 0.6);
-}
-
-/* Hover Effect */
-#search-bar:hover {
-    background: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
 /* Partners Container */
@@ -255,4 +212,24 @@ iframe {
 /* Glow effect on hover */
 .partner:hover img {
     box-shadow: 0 0 10px rgba(0, 0, 255, 0.7); /* Add a softer glow closer to the image */
+}
+
+/* Use dynamic background color for scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--dynamic-color, #888);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: var(--dynamic-color, #f1f1f1);
+}
+
+/* Change text selection color */
+::selection {
+    background: var(--dynamic-color, rgba(0, 0, 0, 0.5));
+    color: white;
 }
