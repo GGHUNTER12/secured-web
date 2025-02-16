@@ -259,3 +259,9 @@ iframe {
     color: #ccc;
     font-weight: 400;
 }
+
+/* Line below the search bar */
+.search-container {
+    margin-bottom: 20px; /* Adds space between the search bar and the apps */
+    border-bottom: 2px solid #ccc; /* Adds a line below the search bar */
+}
