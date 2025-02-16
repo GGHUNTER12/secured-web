@@ -35,11 +35,11 @@ body {
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
 }
 
-/* Title as Header with White Glowing Effect and Black Bold Text */
+/* Title as Header with Bold White Glowing Effect */
 .title {
     font-size: 4rem;
-    font-weight: bold;
-    color: black;
+    font-weight: bold; /* Makes the text bold */
+    color: white;
     text-align: center;
     margin-bottom: 20px;
     animation: glowing 1.5s infinite alternate;
