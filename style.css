@@ -260,8 +260,10 @@ iframe {
     font-weight: 400;
 }
 
-/* Line below the search bar */
+/* Line below the search bar with a gap */
 .search-container {
     margin-bottom: 20px; /* Adds space between the search bar and the apps */
+    padding-bottom: 10px; /* Adds a gap between the search bar and the border */
     border-bottom: 2px solid #ccc; /* Adds a line below the search bar */
 }
+
