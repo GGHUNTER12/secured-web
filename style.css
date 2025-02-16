@@ -90,7 +90,7 @@ p {
     position: relative;
 }
 
-/* Floating App Effect */
+/* Hover effect */
 .app:hover {
     transform: translateY(-10px) scale(1.1);
     background: rgba(255, 255, 255, 0.2);
@@ -111,6 +111,25 @@ p {
     color: white;
     font-weight: 600;
     text-align: center;
+}
+
+/* Hover effect on app image */
+.app:hover {
+    transform: scale(1.05); /* Slightly enlarge on hover */
+    background: rgba(255, 255, 255, 0.2); /* Slight change in background on hover */
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5); /* Deepen shadow on hover */
+}
+
+.app img:hover {
+    transform: scale(1.05); /* Slightly enlarge image on hover */
+    filter: brightness(1.2); /* Slightly brighten image on hover */
+}
+
+/* Prevent outline or box appearing during hover */
+.app:focus,
+.app img:focus {
+    outline: none;
+    box-shadow: none;
 }
 
 /* Discord App specific styles */
