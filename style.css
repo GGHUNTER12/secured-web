@@ -1,28 +1,3 @@
-/* Search Web Bar Styling */
-#search-web {
-    width: 300px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 25px;
-    font-size: 1.2rem;
-    outline: none;
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
-    transition: all 0.3s ease;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
-}
-
-/* Fix to stop constant updating */
-#search-web:focus {
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.4); /* Keep a solid shadow when focused */
-}
-
-/* Placeholder text styling */
-#search-web::placeholder {
-    color: #ccc;
-    font-weight: 400;
-}
-
 /* Global styles */
 * {
     margin: 0;
@@ -255,6 +230,32 @@ iframe {
 
 /* Change text selection color */
 ::selection {
-    background: var(--dynamic-color, rgba(0, 0, 0, 0.5));
+    background: var(--dynamic-color, white); /* Matches background color */
     color: white;
 }
+
+/* Search Web Bar Styling */ 
+#search-web {
+    width: 300px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.2rem;
+    outline: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    transition: all 0.3s ease;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Fix to stop constant updating */
+#search-web:focus {
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.4); /* Keep a solid shadow when focused */
+}
+
+/* Placeholder text styling */
+#search-web::placeholder {
+    color: #ccc;
+    font-weight: 400;
+}
+
