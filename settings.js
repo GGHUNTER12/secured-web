@@ -23,12 +23,22 @@ document.addEventListener("DOMContentLoaded", function () {
         document.documentElement.style.setProperty("--dynamic-color", bgValue);
         body.classList.remove("default-bg");
 
+        let color;
         if (isGradient(bgValue)) {
-            const color = extractColorFromGradient(bgValue);
-            logo.style.color = color;
+            color = extractColorFromGradient(bgValue);
         } else {
-            logo.style.color = ''; // Reset to default if not a gradient
+            color = bgValue;
         }
+
+        // Update logo color
+        logo.style.color = color;
+
+        // Update text highlight color
+        document.documentElement.style.setProperty("--highlight-color", color);
+
+        // Update scrollbar colors
+        document.documentElement.style.setProperty("--scrollbar-thumb-color", color);
+        document.documentElement.style.setProperty("--scrollbar-track-color", '#f1f1f1'); // Adjust as needed
     }
 
     // Apply stored background if found
@@ -50,6 +60,9 @@ document.addEventListener("DOMContentLoaded", function () {
         body.classList.add("default-bg");
         body.style.background = "";
         document.documentElement.style.removeProperty("--dynamic-color");
+        document.documentElement.style.removeProperty("--highlight-color");
+        document.documentElement.style.removeProperty("--scrollbar-thumb-color");
+        document.documentElement.style.removeProperty("--scrollbar-track-color");
         logo.style.color = ''; // Reset logo color
     };
 });
