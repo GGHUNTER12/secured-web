@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/secured-web/style.css">
+    <link rel="stylesheet" href="/secured-web/menu.css">
 </head>
 <body>
     <!-- Top Floating Menu -->
@@ -20,7 +21,7 @@
                 <li><a href="https://gghunter12.github.io/secured-web/settings" class="menu-button">⚙️ Settings</a></li>
                 <!-- User Profile Picture as Button -->
                 <li>
-                    <a href="https://gghunter12.github.io/secured-web/profile.html" class="profile-button">
+                    <a href="https://gghunter12.github.io/secured-web/profile" class="profile-button">
                         <img id="menu-profile-pic" src="https://www.mobile-calendar.com/img/main/user.webp" alt="Profile">
                     </a>
                 </li>
@@ -77,6 +78,19 @@
         } else {
             console.log("No UID in URL!");
         }
+    </script>
+
+    <script src="/secured-web/particles.js"></script>
+    <script src="/secured-web/app.js"></script>
+    <script src="/secured-web/settings.js"></script>
+    <script src="/secured-web/analytics.js"></script>
+
+    <!-- Crate Widget for Discord -->
+    <script src="https://cdn.jsdelivr.net/npm/@widgetbot/crate@3" async defer> 
+        new Crate({
+            server: '1045821677583474808',
+            channel: '1046287752032956537',
+        });
     </script>
 </body>
 </html>
