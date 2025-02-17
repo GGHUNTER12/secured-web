@@ -23,7 +23,7 @@
 }
 
 .logo a:hover {
-    color: var(--hover-color, #903aef);
+    color: #903aef;
 }
 
 nav ul {
