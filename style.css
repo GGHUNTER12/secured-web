@@ -283,3 +283,42 @@ iframe {
 .search-container {
     margin-bottom: 30px; /* Adds space between the search bar and the apps */
 }
+
+/* Announcement Box Styling */
+.announcement-box {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    border-radius: 30px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Close Button Styling */
+.close-announcement {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Close Button Hover Effect */
+.close-announcement:hover {
+    transform: scale(1.2);
+    color: #ff0000;
+}
+
