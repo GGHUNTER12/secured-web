@@ -18,28 +18,19 @@ document.addEventListener("DOMContentLoaded", function () {
         return `rgb(${pixelData[0]}, ${pixelData[1]}, ${pixelData[2]})`;
     }
 
-    function applyStyles(bgValue) {
-        body.style.background = bgValue;
-        document.documentElement.style.setProperty("--dynamic-color", bgValue);
-        body.classList.remove("default-bg");
+function applyStyles(bgValue) {
+    body.style.background = bgValue;
+    document.documentElement.style.setProperty("--dynamic-color", bgValue);
+    body.classList.remove("default-bg");
 
-        let color;
-        if (isGradient(bgValue)) {
-            color = extractColorFromGradient(bgValue);
-        } else {
-            color = bgValue;
-        }
-
-        // Update logo color
-        logo.style.color = color;
-
-        // Update text highlight color
-        document.documentElement.style.setProperty("--highlight-color", color);
-
-        // Update scrollbar colors
-        document.documentElement.style.setProperty("--scrollbar-thumb-color", color);
-        document.documentElement.style.setProperty("--scrollbar-track-color", '#f1f1f1'); // Adjust as needed
+    if (isGradient(bgValue)) {
+        const color = extractColorFromGradient(bgValue);
+        document.documentElement.style.setProperty("--hover-color", color);
+    } else {
+        document.documentElement.style.setProperty("--hover-color", bgValue);
     }
+}
+
 
     // Apply stored background if found
     if (storedBg) {
