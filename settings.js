@@ -7,8 +7,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const userEmail = localStorage.getItem("userEmail");
 
     // If no userEmail, disable the background change
-    if (!userEmail) {
-        dropdown.disabled = true; // Disable the dropdown
+    const isUserSignedIn = userEmail !== null;
+
+    // If user is not signed in, disable the dropdown
+    if (!isUserSignedIn) {
+        dropdown.disabled = true;
     }
 
     // Apply stored background if found
@@ -21,6 +24,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Event listener for dropdown change
     dropdown.addEventListener('change', function () {
+        // Check if the dropdown is disabled or the user is not signed in
+        if (dropdown.disabled || !isUserSignedIn) {
+            alert("You need to sign in to change the background!");
+            return; // Stop the function here if the user is not signed in
+        }
+
         const selectedValue = dropdown.value;
         if (selectedValue) {
             body.style.background = selectedValue;
