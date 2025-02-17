@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="profile-container">
+        <h1>User Profile</h1>
+        <div class="profile-info">
+            <img id="profile-pic" src="" alt="Profile Picture" />
+            <h2 id="profile-name"></h2>
+        </div>
+    </div>
+
+    <script type="module">
+        // Firebase setup
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBV7JbLkjDnc0pkbawwjdAg5bLRBOgnV4E",
+            authDomain: "d-web-9b2ea.firebaseapp.com",
+            projectId: "d-web-9b2ea",
+            storageBucket: "d-web-9b2ea.firebasestorage.app",
+            messagingSenderId: "709249421953",
+            appId: "1:709249421953:web:ccc763acf13d28716f3380",
+            measurementId: "G-D7PBM8E1PV"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Get userId from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const userId = urlParams.get('uid'); // Get the userId from URL
+
+        if (userId) {
+            // Fetch user data from Firestore using the UID
+            const userRef = doc(db, "users", userId);
+            getDoc(userRef).then((docSnap) => {
+                if (docSnap.exists()) {
+                    const userData = docSnap.data();
+                    document.getElementById('profile-pic').src = userData.photoURL;
+                    document.getElementById('profile-name').innerText = userData.displayName;
+                } else {
+                    console.log("No such document!");
+                }
+            }).catch((error) => {
+                console.error("Error getting document: ", error);
+            });
+        } else {
+            console.log("No UID in URL!");
+        }
+    </script>
+</body>
+</html>
