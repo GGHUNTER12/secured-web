@@ -3,13 +3,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const dropdown = document.getElementById('style-dropdown');
     const storedBg = localStorage.getItem("customBackground");
 
-    // Check if user is logged in by checking localStorage for userId
-    const userId = localStorage.getItem("userId");
+    // Check if user is logged in by checking localStorage for userEmail
+    const userEmail = localStorage.getItem("userEmail");
 
-    // If no userId, disable the background change and alert user
-    if (!userId) {
+    // If no userEmail, disable the background change and alert user
+    if (!userEmail) {
         dropdown.disabled = true; // Disable the dropdown
-        dropdown.addEventListener('change', function () {
+        dropdown.addEventListener('click', function () {
             alert("Please log in to change the background.");
         });
     }
