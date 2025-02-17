@@ -1,99 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secured V2 - Settings</title>
-    <link rel="icon" type="image/x-icon" href="images/secured-favicon.png">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600&display=swap">
-    <link rel="stylesheet" href="/secured-web/style.css">
-    <link rel="stylesheet" href="/secured-web/menu.css">
-    <style>
-        /* Original center-box size */
-        .center-box {
-            width: 50%;
-            margin: 50px auto;
-            padding: 20px;
-            text-align: center;
+document.addEventListener("DOMContentLoaded", function () {
+    const body = document.body;
+    const dropdown = document.getElementById('style-dropdown');
+    const storedBg = localStorage.getItem("customBackground");
+
+    // Apply stored background if found
+    if (storedBg) {
+        body.style.background = storedBg;
+        dropdown.value = storedBg;
+    } else {
+        body.classList.add("default-bg");
+    }
+
+    // Event listener for dropdown change
+    dropdown.addEventListener('change', function () {
+        const selectedValue = dropdown.value;
+        if (selectedValue) {
+            body.style.background = selectedValue;
+            localStorage.setItem("customBackground", selectedValue);
+        } else {
+            resetBackground();
         }
+    });
 
-        /* Added iframe styling */
-        iframe {
-            width: 100%;
-            height: 500px;
-            border: none;
-            display: none; /* Hidden by default */
-        }
-    </style>
-</head>
-<body>
-<div id="particles-js"></div>
-
-    <!-- Top Floating Menu -->
-    <header class="top-menu">
-        <div class="logo">
-            <a href="https://gghunter12.github.io/secured-web">SECURED WEB</a>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="https://gghunter12.github.io/secured-web/" class="menu-button">🏠 Home</a></li>
-                <li><a href="https://gghunter12.github.io/secured-web/games" class="menu-button">🎮 Games</a></li>
-                <li><a href="https://gghunter12.github.io/secured-web/partners" class="menu-button">🤝 Partners</a></li>
-                <li><a href="https://gghunter12.github.io/secured-web/settings" class="menu-button">⚙️ Settings</a></li>
-            </ul>
-        </nav>
-    </header>
-
-<div class="center-box">
-    <h1 class="title">Settings</h1>
-    <p>This is a setting page, I know</p>
-
-    <!-- Button to open about:blank iframe -->
-    <button onclick="openAboutBlank()">Open Page in About:Blank</button>
-
-    <!-- Styles Section -->
-<!-- Styles Section -->
-<h2 class="styles-header">Styles</h2>
-<div class="styles-section">
-    <select id="style-dropdown" onchange="setBackgroundFromDropdown()">
-        <option value="">Default</option>
-        <option value="linear-gradient(135deg, #ff7eb3, #ff758c)">Pink Gradient</option>
-        <option value="linear-gradient(135deg, #42e695, #3bb2b8)">Green Gradient</option>
-        <option value="linear-gradient(135deg, #89CFF0, #A3D8F4)">Baby Blue Gradient</option>
-        <option value="linear-gradient(135deg, #ff9966, #ff5e62)">Orange Gradient</option>
-        <option value="linear-gradient(135deg, #ffeb3b, #f44336)">Sunset Gradient</option>
-        <option value="linear-gradient(135deg, #000000, #434343)">Black Gradient</option>
-    </select>
-</div>
-
-    <!-- Iframe that will load https://gghunter12.github.io/secured-web -->
-    <iframe id="about-blank-frame"></iframe>
-</div>
-
-
-    <script>
-        function openAboutBlank() {
-            var newWindow = window.open('about:blank', '_blank');
-            var iframe = newWindow.document.createElement('iframe');
-            iframe.style.width = "100%";
-            iframe.style.height = "100%";
-            iframe.style.border = "none";
-            iframe.src = "https://gghunter12.github.io/secured-web"; // Load the URL inside the iframe
-            newWindow.document.body.appendChild(iframe);
-        }
-    </script>
-
-    <!-- Crate Widget for Discord -->
-    <script src="https://cdn.jsdelivr.net/npm/@widgetbot/crate@3" async defer> 
-        new Crate({
-            server: '1045821677583474808',
-            channel: '1046287752032956537',
-        });
-    </script>
-
-    <script src="/secured-web/particles.js"></script>
-    <script src="/secured-web/app.js"></script>
-    <script src="/secured-web/settings.js"></script>
-    <script src="/secured-web/analytics.js"></script>
-</body>
-</html>
+    // Function to reset to default
+    function resetBackground() {
+        localStorage.removeItem("customBackground");
+        body.classList.add("default-bg");
+        body.style.background = "";
+    }
+});
