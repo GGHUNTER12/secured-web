@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/secured-web/style.css">
     <link rel="stylesheet" href="/secured-web/menu.css">
     <script type="module">
-        // Import Firebase SDK
+        // Firebase Authentication and Firestore Integration
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
         import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
 
@@ -34,12 +34,12 @@
                 .then((result) => {
                     const user = result.user;
                     updateProfileUI(user);
-                    generateProfileUrl(user.uid);
                     // Save user data in localStorage
                     localStorage.setItem("userPhoto", user.photoURL);
                     localStorage.setItem("userName", user.displayName);
                     localStorage.setItem("userEmail", user.email);
                     localStorage.setItem("userId", user.uid);  // Save user UID
+                    generateProfileUrl(user.uid); // Generate the URL after successful login
                 })
                 .catch((error) => {
                     console.error("Sign-in error", error);
@@ -67,7 +67,7 @@
             const profileEmail = document.getElementById("profile-email");
             const menuProfilePic = document.getElementById("menu-profile-pic");
             const signInButton = document.getElementById("sign-in-btn");
-            
+
             if (user) {
                 profilePic.src = user.photoURL;
                 profileName.innerText = user.displayName;
@@ -84,13 +84,9 @@
         }
 
         function generateProfileUrl(userId) {
-            const profileUrl = `https://gghunter12.github.io/secured-web/profile/${userId}`;
-            const profileUrlText = document.getElementById("profile-url-text");
-            const profileUrlLink = document.getElementById("profile-url-link");
-
-            profileUrlText.innerText = profileUrl;
-            profileUrlLink.href = profileUrl;
-            profileUrlLink.style.display = "block"; // Make sure the link is visible
+            const profileUrl = `https://gghunter12.github.io/secured-web/profile/${userId}`; // Use userId to generate URL
+            document.getElementById("profile-url-text").innerText = profileUrl;
+            document.getElementById("profile-url").style.display = "block";
         }
 
         // Check if the user is logged in from localStorage
@@ -99,7 +95,7 @@
             const userName = localStorage.getItem("userName");
             const userEmail = localStorage.getItem("userEmail");
             const userId = localStorage.getItem("userId");
-            
+
             if (userPhoto && userName && userEmail && userId) {
                 // Create a dummy user object from localStorage to simulate a signed-in user
                 const user = {
@@ -109,7 +105,7 @@
                     uid: userId
                 };
                 updateProfileUI(user);
-                generateProfileUrl(userId);
+                generateProfileUrl(userId); // Generate the profile URL on page load
             }
         };
 
@@ -156,12 +152,9 @@
             <button onclick="signOutUser()">Sign Out</button>
         </div>
 
-        <!-- Profile URL -->
+        <!-- Profile URL Display -->
         <div id="profile-url" style="display:none;">
-            <p>Share your profile: </p>
-            <a id="profile-url-link" href="" target="_blank" style="word-break: break-word;">
-                <span id="profile-url-text"></span>
-            </a>
+            <p>Your Profile URL: <span id="profile-url-text"></span></p>
         </div>
     </div>
 
