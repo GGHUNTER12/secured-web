@@ -3,9 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Secured V2</title>
+    <title>Secured V2 - Profile</title>
+    <link rel="icon" type="image/x-icon" href="images/secured-favicon.png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600&display=swap">
     <link rel="stylesheet" href="/secured-web/style.css">
     <link rel="stylesheet" href="/secured-web/menu.css">
+    <script type="module">
+        // Import Firebase SDK
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBV7JbLkjDnc0pkbawwjdAg5bLRBOgnV4E",
+            authDomain: "d-web-9b2ea.firebaseapp.com",
+            projectId: "d-web-9b2ea",
+            storageBucket: "d-web-9b2ea.firebasestorage.app",
+            messagingSenderId: "709249421953",
+            appId: "1:709249421953:web:ccc763acf13d28716f3380",
+            measurementId: "G-D7PBM8E1PV"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+
+        function signIn() {
+            signInWithPopup(auth, provider)
+                .then((result) => {
+                    const user = result.user;
+                    updateProfileUI(user);
+                    // Save user data in localStorage
+                    localStorage.setItem("userPhoto", user.photoURL);
+                    localStorage.setItem("userName", user.displayName);
+                    localStorage.setItem("userEmail", user.email);
+                })
+                .catch((error) => {
+                    console.error("Sign-in error", error);
+                });
+        }
+
+        function signOutUser() {
+            signOut(auth).then(() => {
+                document.getElementById("profile").style.display = "none";
+                updateProfileUI(null);
+                // Remove user data from localStorage
+                localStorage.removeItem("userPhoto");
+                localStorage.removeItem("userName");
+                localStorage.removeItem("userEmail");
+            }).catch((error) => {
+                console.error("Sign-out error", error);
+            });
+        }
+
+        function updateProfileUI(user) {
+            const profileSection = document.getElementById("profile");
+            const profilePic = document.getElementById("profile-pic");
+            const profileName = document.getElementById("profile-name");
+            const profileEmail = document.getElementById("profile-email");
+            const menuProfilePic = document.getElementById("menu-profile-pic");
+            const signInButton = document.getElementById("sign-in-btn");
+
+            if (user) {
+                profilePic.src = user.photoURL;
+                profileName.innerText = user.displayName;
+                profileEmail.innerText = user.email;
+                profileSection.style.display = "block";
+                menuProfilePic.src = user.photoURL;
+                signInButton.style.display = "none";
+            } else {
+                profilePic.src = "https://www.mobile-calendar.com/img/main/user.webp"; // Default avatar
+                profileSection.style.display = "none";
+                menuProfilePic.src = "https://www.mobile-calendar.com/img/main/user.webp"; // Default avatar
+                signInButton.style.display = "block";
+            }
+        }
+
+        // Check if the user is logged in from localStorage
+        window.onload = () => {
+            const userPhoto = localStorage.getItem("userPhoto");
+            const userName = localStorage.getItem("userName");
+            const userEmail = localStorage.getItem("userEmail");
+            
+            if (userPhoto && userName && userEmail) {
+                updateProfileUI({
+                    photoURL: userPhoto,
+                    displayName: userName,
+                    email: userEmail
+                });
+            }
+        };
+
+        window.signIn = signIn;
+        window.signOutUser = signOutUser;
+    </script>
 </head>
 <body>
     <div id="particles-js"></div>
@@ -32,74 +124,20 @@
     </header>
 
     <div class="center-box">
-        <h1>Login</h1>
+        <h1 class="title">Profile</h1>
         <p>Sign in to access your account.</p>
-
+        
+        <!-- Firebase Sign-In Button -->
         <button id="sign-in-btn" onclick="signIn()">Sign in with Google</button>
-
-        <div id="profile-url" style="display:none;">
-            <p>Your Profile URL: <a id="profile-url-text" href="#">Loading...</a></p>
+        
+        <!-- Profile Info -->
+        <div id="profile" style="display:none;">
+            <img id="profile-pic" src="" alt="Profile Picture">
+            <h2 id="profile-name"></h2>
+            <p id="profile-email"></p>
+            <button onclick="signOutUser()">Sign Out</button>
         </div>
     </div>
-
-    <!-- Firebase Script -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js"></script>
-
-<script type="module">
-    // Firebase configuration
-    const firebaseConfig = {
-        apiKey: "AIzaSyBV7JbLkjDnc0pkbawwjdAg5bLRBOgnV4E",
-        authDomain: "d-web-9b2ea.firebaseapp.com",
-        projectId: "d-web-9b2ea",
-        storageBucket: "d-web-9b2ea.firebasestorage.app",
-        messagingSenderId: "709249421953",
-        appId: "1:709249421953:web:ccc763acf13d28716f3380",
-        measurementId: "G-D7PBM8E1PV"
-    };
-
-    // Initialize Firebase
-    const app = firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const provider = new firebase.auth.GoogleAuthProvider();
-
-    // Function to handle Google Sign-In
-    function signIn() {
-        auth.signInWithPopup(provider)
-            .then((result) => {
-                const user = result.user;
-                saveUserData(user);
-                generateProfileUrl(user.uid);
-            })
-            .catch((error) => {
-                console.error("Sign-in error", error);
-            });
-    }
-
-    // Save user data to Firestore
-    function saveUserData(user) {
-        const db = firebase.firestore();
-        const userRef = db.collection("users").doc(user.uid);
-        userRef.set({
-            displayName: user.displayName,
-            photoURL: user.photoURL,
-            email: user.email
-        }).then(() => {
-            console.log("User data saved!");
-        }).catch((error) => {
-            console.error("Error saving user data", error);
-        });
-    }
-
-    // Generate profile URL with UID
-    function generateProfileUrl(uid) {
-        const profileUrl = `https://gghunter12.github.io/secured-web/account?uid=${uid}`;
-        document.getElementById("profile-url-text").innerText = profileUrl;
-        document.getElementById("profile-url-text").href = profileUrl;
-        document.getElementById("profile-url").style.display = "block";
-    }
-</script>
 
     <script src="/secured-web/particles.js"></script>
     <script src="/secured-web/app.js"></script>
