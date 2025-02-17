@@ -29,3 +29,18 @@ document.addEventListener("DOMContentLoaded", function () {
         body.style.background = "";
     }
 });
+
+window.onload = () => {
+    // Check if profile data exists in localStorage
+    const userPhoto = localStorage.getItem("userPhoto");
+
+    // If there's a photo in localStorage, update the profile picture
+    if (userPhoto) {
+        // Set the profile picture from localStorage
+        document.getElementById("menu-profile-pic").src = userPhoto;
+    } else {
+        // If no user data, use a default avatar image
+        document.getElementById("menu-profile-pic").src = "https://www.mobile-calendar.com/img/main/user.webp";
+    }
+};
+
