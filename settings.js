@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     const body = document.body;
-    const logo = document.querySelector('.logo a');
+    const logoLink = document.querySelector('.logo a');
     const storedBg = localStorage.getItem("customBackground");
 
     function isGradient(bgValue) {
@@ -18,19 +18,19 @@ document.addEventListener("DOMContentLoaded", function () {
         return `rgb(${pixelData[0]}, ${pixelData[1]}, ${pixelData[2]})`;
     }
 
-function applyStyles(bgValue) {
-    body.style.background = bgValue;
-    document.documentElement.style.setProperty("--dynamic-color", bgValue);
-    body.classList.remove("default-bg");
+    function applyStyles(bgValue) {
+        body.style.background = bgValue;
+        body.classList.remove("default-bg");
 
-    if (isGradient(bgValue)) {
-        const color = extractColorFromGradient(bgValue);
-        document.documentElement.style.setProperty("--hover-color", color);
-    } else {
-        document.documentElement.style.setProperty("--hover-color", bgValue);
+        let dynamicColor;
+        if (isGradient(bgValue)) {
+            dynamicColor = extractColorFromGradient(bgValue);
+        } else {
+            dynamicColor = bgValue;
+        }
+
+        document.documentElement.style.setProperty("--dynamic-color", dynamicColor);
     }
-}
-
 
     // Apply stored background if found
     if (storedBg) {
@@ -51,9 +51,5 @@ function applyStyles(bgValue) {
         body.classList.add("default-bg");
         body.style.background = "";
         document.documentElement.style.removeProperty("--dynamic-color");
-        document.documentElement.style.removeProperty("--highlight-color");
-        document.documentElement.style.removeProperty("--scrollbar-thumb-color");
-        document.documentElement.style.removeProperty("--scrollbar-track-color");
-        logo.style.color = ''; // Reset logo color
     };
 });
