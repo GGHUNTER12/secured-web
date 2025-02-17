@@ -6,12 +6,9 @@ document.addEventListener("DOMContentLoaded", function () {
     // Check if user is logged in by checking localStorage for userEmail
     const userEmail = localStorage.getItem("userEmail");
 
-    // If no userEmail, disable the background change and alert user
+    // If no userEmail, disable the background change
     if (!userEmail) {
         dropdown.disabled = true; // Disable the dropdown
-        dropdown.addEventListener('click', function () {
-            alert("Please log in to change the background.");
-        });
     }
 
     // Apply stored background if found
