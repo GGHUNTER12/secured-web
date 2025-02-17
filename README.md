@@ -1,2 +1,2 @@
 # Secured by secured web
-- its open-source like all sigmas
+---- its open-source like all sigmas
