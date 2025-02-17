@@ -1,5 +1,3 @@
-<span style="color: blue"> Secured by secured web </span>
-
-
-
-sigma
+# Secured by secured web
+--------------------------
+its open-source like all sigmas
