@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secured V2 - Vex 3</title>
+    <link rel="icon" type="image/x-icon" href="/secured-web/images/secured-favicon.png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600&display=swap">
+    <link rel="stylesheet" href="/secured-web/style.css">
+    <link rel="stylesheet" href="/secured-web/menu.css">
+
+    <style>
+        .center-box {
+            width: 80%;
+            max-width: 900px;
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+
+    <!-- Top Floating Menu -->
+    <header class="top-menu">
+        <div class="logo">
+            <a href="https://gghunter12.github.io/secured-web/">SECURED WEB</a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="https://gghunter12.github.io/secured-web/" class="menu-button">🏠 Home</a></li>
+                <li><a href="https://gghunter12.github.io/secured-web/games.html" class="menu-button">🎮 Games</a></li>
+                <li><a href="https://gghunter12.github.io/secured-web/partners.html" class="menu-button">🤝 Partners</a></li>
+                <li><a href="https://gghunter12.github.io/secured-web/settings.html" class="menu-button">⚙️ Settings</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Center Box -->
+    <div class="center-box">
+        <!-- Iframe Container -->
+        <div class="iframe-container">
+            <iframe id="app-iframe" src="https://vex-3.fbrq.io/vex-3/index.html"></iframe>
+        </div>
+
+        <!-- Buttons -->
+        <div class="button-container">
+            <button onclick="reloadIframe()" class="button">🔄 Reload</button>
+            <button onclick="toggleFullscreen()" class="button">⛶ Fullscreen</button>
+        </div>
+    </div>
+
+    <script src="/secured-web/particles.js"></script>
+    <script src="/secured-web/app.js"></script>
+    <script src="/secured-web/settings.js"></script>
+    <script src="/secured-web/analytics.js"></script>
+    <script>
+    function reloadIframe() {
+    let iframe = document.getElementById('app-iframe');
+    iframe.src = iframe.src; // This forces the iframe to reload
+}
+
+
+        
+        function toggleFullscreen() {
+            let iframe = document.getElementById('app-iframe');
+            if (!document.fullscreenElement) {
+                iframe.requestFullscreen().catch(err => console.log(err));
+            } else {
+                document.exitFullscreen();
+            }
+        }
+    </script>
+
+    <!-- Crate Widget for Discord -->
+    <script src="https://cdn.jsdelivr.net/npm/@widgetbot/crate@3" async defer> 
+        new Crate({
+            server: '1045821677583474808',
+            channel: '1046287752032956537',
+        });
+    </script>
+</body>
+</html>
