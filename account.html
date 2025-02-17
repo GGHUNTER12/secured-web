@@ -7,11 +7,33 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Top Floating Menu -->
+    <header class="top-menu">
+        <div class="logo">
+            <a href="https://gghunter12.github.io/secured-web/">SECURED WEB</a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="https://gghunter12.github.io/secured-web/" class="menu-button">🏠 Home</a></li>
+                <li><a href="https://gghunter12.github.io/secured-web/games" class="menu-button">🎮 Games</a></li>
+                <li><a href="https://gghunter12.github.io/secured-web/partners" class="menu-button">🤝 Partners</a></li>
+                <li><a href="https://gghunter12.github.io/secured-web/settings" class="menu-button">⚙️ Settings</a></li>
+                <!-- User Profile Picture as Button -->
+                <li>
+                    <a href="https://gghunter12.github.io/secured-web/profile.html" class="profile-button">
+                        <img id="menu-profile-pic" src="https://www.mobile-calendar.com/img/main/user.webp" alt="Profile">
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
     <div class="profile-container">
         <h1>User Profile</h1>
         <div class="profile-info">
             <img id="profile-pic" src="" alt="Profile Picture" />
             <h2 id="profile-name"></h2>
+            <p id="profile-email"></p>
         </div>
     </div>
 
@@ -45,6 +67,7 @@
                     const userData = docSnap.data();
                     document.getElementById('profile-pic').src = userData.photoURL;
                     document.getElementById('profile-name').innerText = userData.displayName;
+                    document.getElementById('profile-email').innerText = userData.email;
                 } else {
                     console.log("No such document!");
                 }
