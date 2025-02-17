@@ -321,48 +321,6 @@ iframe {
     background: rgba(0, 0, 0, 0.6);
 }
 
-/* Floating menu styles */
-.top-menu {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    padding: 15px 0;
-    z-index: 1000;
-}
-
-.top-menu .logo a {
-    color: white;
-    font-size: 1.5em;
-    text-decoration: none;
-    margin-left: 20px;
-    font-weight: 600;
-}
-
-.top-menu nav ul {
-    list-style: none;
-    display: flex;
-    justify-content: flex-end;
-    margin: 0;
-    padding: 0;
-}
-
-.top-menu nav ul li {
-    margin: 0 20px;
-}
-
-.top-menu nav ul li a {
-    color: white;
-    font-size: 1.2em;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.top-menu nav ul li a:hover {
-    color: #6e8e6e;
-}
-
 /* Profile button styling */
 .profile-button img {
     width: 40px;
@@ -375,17 +333,6 @@ iframe {
 
 .profile-button img:hover {
     transform: scale(1.1);
-}
-
-/* Profile page styling */
-.center-box {
-    margin-top: 80px;
-    text-align: center;
-}
-
-.center-box .title {
-    font-size: 2em;
-    font-weight: 600;
 }
 
 #profile {
