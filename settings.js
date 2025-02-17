@@ -1,7 +1,18 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () { 
     const body = document.body;
     const dropdown = document.getElementById('style-dropdown');
     const storedBg = localStorage.getItem("customBackground");
+
+    // Check if user is logged in by checking localStorage for userId
+    const userId = localStorage.getItem("userId");
+
+    // If no userId, disable the background change and alert user
+    if (!userId) {
+        dropdown.disabled = true; // Disable the dropdown
+        dropdown.addEventListener('change', function () {
+            alert("Please log in to change the background.");
+        });
+    }
 
     // Apply stored background if found
     if (storedBg) {
@@ -43,4 +54,3 @@ window.onload = () => {
         document.getElementById("menu-profile-pic").src = "https://www.mobile-calendar.com/img/main/user.webp";
     }
 };
-
