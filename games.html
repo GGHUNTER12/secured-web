@@ -15,8 +15,10 @@
         }
 
         .app-container-wrapper {
-            overflow-y: auto; /* Allows scrolling if there are more apps than can fit */
-            max-height: 400px; /* Adjust this height to control how much can be shown at once */
+            overflow-y: auto;
+            max-height: 400px; 
+            max-height: 480px; 
+            mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
         }
 
         .app-container {
@@ -68,7 +70,7 @@
         <!-- App Container -->
         <div class="app-container-wrapper">
             <div class="app-container">
-                <a href="https://forms.gle/yz51gGeREemdfbE39" class="app">
+                <a href="https://forms.gle/yz51gGeREemdfbE39" class="app suggest-app">
                     <img src="/secured-web/plus-square.svg" alt="suggest games">
                     <span>Suggest </span>
                 </a>
@@ -154,7 +156,7 @@
 
     <script src="/secured-web/particles.js"></script>
     <script src="/secured-web/app.js"></script>
-    <script src="settings.js"></script>
+    <script src="/secured-web/settings.js"></script>
     <script src="analytics.js"></script>
 
     <!-- Crate Widget for Discord -->
@@ -174,6 +176,16 @@
                 app.style.display = text.includes(input) ? '' : 'none';
             });
         }
+        
+        function searchGames() {
+    let input = document.getElementById('search-bar').value.toLowerCase();
+    let apps = document.querySelectorAll('.app:not(.suggest-app)');
+    apps.forEach(app => {
+        let text = app.textContent.toLowerCase();
+        app.style.display = text.includes(input) ? '' : 'none';
+    });
+}
+
     </script>
 </body>
 </html>
