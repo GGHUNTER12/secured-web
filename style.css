@@ -234,7 +234,7 @@ iframe {
     box-shadow: 0 0 10px rgba(0, 0, 255, 0.7); /* Add a softer glow closer to the image */
 }
 
-/* Use dynamic background color for scrollbar */
+/* Scrollbar styling */
 ::-webkit-scrollbar {
     width: 10px;
 }
@@ -248,7 +248,7 @@ iframe {
     background-color: var(--dynamic-color, #f1f1f1);
 }
 
-/* Change text selection color */
+/* Text selection styling */
 ::selection {
     background: var(--dynamic-color, rgba(0, 0, 0, 0.5));
     color: white;
