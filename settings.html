@@ -66,7 +66,7 @@
 <!-- Styles Section -->
 <h2 class="styles-header">Styles</h2>
 <div class="styles-section">
-    <select id="style-dropdown" onchange="setBackgroundFromDropdown()">
+    <select id="style-dropdown" onchange="setBackgroundFromDropdown()" disabled>
         <option value="">Default</option>
         <option value="linear-gradient(135deg, #ff7eb3, #ff758c)">Pink Gradient</option>
         <option value="linear-gradient(135deg, #42e695, #3bb2b8)">Green Gradient</option>
@@ -76,6 +76,18 @@
         <option value="linear-gradient(135deg, #000000, #434343)">Black Gradient</option>
     </select>
 </div>
+
+<script>
+    function setBackgroundFromDropdown() {
+        const dropdown = document.getElementById("style-dropdown");
+        if (dropdown.disabled) {
+            alert("You need to sign in to change the background!");
+        } else {
+            const selectedValue = dropdown.value;
+            document.body.style.background = selectedValue;
+        }
+    }
+</script>
 
     <!-- Iframe that will load https://gghunter12.github.io/secured-web -->
     <iframe id="about-blank-frame"></iframe>
