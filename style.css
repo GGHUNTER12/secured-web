@@ -234,23 +234,14 @@ iframe {
     box-shadow: 0 0 10px rgba(0, 0, 255, 0.7); /* Add a softer glow closer to the image */
 }
 
-/* Scrollbar styling */
+/* Hide the scrollbar */
 ::-webkit-scrollbar {
-    width: 10px;
+    display: none;
 }
 
-::-webkit-scrollbar-thumb {
-    background-color: var(--dynamic-color, #888);
-    border-radius: 5px;
-}
-
-::-webkit-scrollbar-track {
-    background-color: var(--dynamic-color, #f1f1f1);
-}
-
-/* Text selection styling */
+/* Set the text selection color to light blue */
 ::selection {
-    background: var(--dynamic-color, rgba(0, 0, 0, 0.5));
+    background: lightblue;
     color: white;
 }
 
