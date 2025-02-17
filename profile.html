@@ -3,21 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secured V2 - Profile</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="menu.css"> <!-- Added Menu CSS -->
-    <script src="particles.js"></script> <!-- Added Particles.js -->
-    <script src="app.js"></script> <!-- Added App.js -->
-    <script src="settings.js"></script> <!-- Added Settings.js -->
-    <script src="analytics.js"></script> <!-- Added Analytics.js -->
-    <script src="https://cdn.jsdelivr.net/npm/@widgetbot/crate@3" async defer>
-        new Crate({
-            server: '1045821677583474808',
-            channel: '1046287752032956537',
-        });
-    </script> <!-- Added Crate Widget for Discord -->
+    <title>Login - Secured V2</title>
+    <link rel="stylesheet" href="/secured-web/style.css">
+    <link rel="stylesheet" href="/secured-web/menu.css">
 </head>
 <body>
+    <div id="particles-js"></div>
+
     <!-- Top Floating Menu -->
     <header class="top-menu">
         <div class="logo">
@@ -31,7 +23,7 @@
                 <li><a href="https://gghunter12.github.io/secured-web/settings" class="menu-button">⚙️ Settings</a></li>
                 <!-- User Profile Picture as Button -->
                 <li>
-                    <a href="https://gghunter12.github.io/secured-web/profile.html" class="profile-button">
+                    <a href="https://gghunter12.github.io/secured-web/profile" class="profile-button">
                         <img id="menu-profile-pic" src="https://www.mobile-calendar.com/img/main/user.webp" alt="Profile">
                     </a>
                 </li>
@@ -50,57 +42,76 @@
         </div>
     </div>
 
-    <script type="module">
-        // Firebase setup
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
-        import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
-        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js";
+    <!-- Firebase Script -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js"></script>
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyBV7JbLkjDnc0pkbawwjdAg5bLRBOgnV4E",
-            authDomain: "d-web-9b2ea.firebaseapp.com",
-            projectId: "d-web-9b2ea",
-            storageBucket: "d-web-9b2ea.firebasestorage.app",
-            messagingSenderId: "709249421953",
-            appId: "1:709249421953:web:ccc763acf13d28716f3380",
-            measurementId: "G-D7PBM8E1PV"
-        };
+<script type="module">
+    // Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyBV7JbLkjDnc0pkbawwjdAg5bLRBOgnV4E",
+        authDomain: "d-web-9b2ea.firebaseapp.com",
+        projectId: "d-web-9b2ea",
+        storageBucket: "d-web-9b2ea.firebasestorage.app",
+        messagingSenderId: "709249421953",
+        appId: "1:709249421953:web:ccc763acf13d28716f3380",
+        measurementId: "G-D7PBM8E1PV"
+    };
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const provider = new GoogleAuthProvider();
-        const db = getFirestore(app);
+    // Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const provider = new firebase.auth.GoogleAuthProvider();
 
-        // Sign-in function
-        function signIn() {
-            signInWithPopup(auth, provider)
-                .then((result) => {
-                    const user = result.user;
-                    saveUserData(user);
-                    generateProfileUrl(user.uid);
-                })
-                .catch((error) => {
-                    console.error("Sign-in error", error);
-                });
-        }
-
-        // Save user data to Firestore
-        function saveUserData(user) {
-            const userRef = doc(db, "users", user.uid);
-            setDoc(userRef, {
-                displayName: user.displayName,
-                photoURL: user.photoURL,
-                email: user.email
+    // Function to handle Google Sign-In
+    function signIn() {
+        auth.signInWithPopup(provider)
+            .then((result) => {
+                const user = result.user;
+                saveUserData(user);
+                generateProfileUrl(user.uid);
+            })
+            .catch((error) => {
+                console.error("Sign-in error", error);
             });
-        }
+    }
 
-        // Generate profile URL with UID
-        function generateProfileUrl(uid) {
-            const profileUrl = `https://gghunter12.github.io/secured-web/account?uid=${uid}`;
-            document.getElementById("profile-url-text").innerText = profileUrl;
-            document.getElementById("profile-url-text").href = profileUrl;
-            document.getElementById("profile-url").style.display = "block";
-        }
+    // Save user data to Firestore
+    function saveUserData(user) {
+        const db = firebase.firestore();
+        const userRef = db.collection("users").doc(user.uid);
+        userRef.set({
+            displayName: user.displayName,
+            photoURL: user.photoURL,
+            email: user.email
+        }).then(() => {
+            console.log("User data saved!");
+        }).catch((error) => {
+            console.error("Error saving user data", error);
+        });
+    }
+
+    // Generate profile URL with UID
+    function generateProfileUrl(uid) {
+        const profileUrl = `https://gghunter12.github.io/secured-web/account?uid=${uid}`;
+        document.getElementById("profile-url-text").innerText = profileUrl;
+        document.getElementById("profile-url-text").href = profileUrl;
+        document.getElementById("profile-url").style.display = "block";
+    }
+</script>
+
+    <script src="/secured-web/particles.js"></script>
+    <script src="/secured-web/app.js"></script>
+    <script src="/secured-web/settings.js"></script>
+    <script src="/secured-web/analytics.js"></script>
+
+    <!-- Crate Widget for Discord -->
+    <script src="https://cdn.jsdelivr.net/npm/@widgetbot/crate@3" async defer> 
+        new Crate({
+            server: '1045821677583474808',
+            channel: '1046287752032956537',
+        });
     </script>
 </body>
 </html>
