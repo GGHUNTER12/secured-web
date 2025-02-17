@@ -85,8 +85,12 @@
 
         function generateProfileUrl(userId) {
             const profileUrl = `https://gghunter12.github.io/secured-web/profile/${userId}`;
-            document.getElementById("profile-url-text").innerText = profileUrl;
-            document.getElementById("profile-url").style.display = "block";
+            const profileUrlText = document.getElementById("profile-url-text");
+            const profileUrlLink = document.getElementById("profile-url-link");
+
+            profileUrlText.innerText = profileUrl;
+            profileUrlLink.href = profileUrl;
+            profileUrlLink.style.display = "block"; // Make sure the link is visible
         }
 
         // Check if the user is logged in from localStorage
@@ -155,7 +159,9 @@
         <!-- Profile URL -->
         <div id="profile-url" style="display:none;">
             <p>Share your profile: </p>
-            <span id="profile-url-text"></span>
+            <a id="profile-url-link" href="" target="_blank" style="word-break: break-word;">
+                <span id="profile-url-text"></span>
+            </a>
         </div>
     </div>
 
