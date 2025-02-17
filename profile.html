@@ -34,10 +34,12 @@
                 .then((result) => {
                     const user = result.user;
                     updateProfileUI(user);
+                    generateProfileUrl(user.uid);
                     // Save user data in localStorage
                     localStorage.setItem("userPhoto", user.photoURL);
                     localStorage.setItem("userName", user.displayName);
                     localStorage.setItem("userEmail", user.email);
+                    localStorage.setItem("userId", user.uid);  // Save user UID
                 })
                 .catch((error) => {
                     console.error("Sign-in error", error);
@@ -52,6 +54,7 @@
                 localStorage.removeItem("userPhoto");
                 localStorage.removeItem("userName");
                 localStorage.removeItem("userEmail");
+                localStorage.removeItem("userId");  // Remove user UID
             }).catch((error) => {
                 console.error("Sign-out error", error);
             });
@@ -64,7 +67,7 @@
             const profileEmail = document.getElementById("profile-email");
             const menuProfilePic = document.getElementById("menu-profile-pic");
             const signInButton = document.getElementById("sign-in-btn");
-
+            
             if (user) {
                 profilePic.src = user.photoURL;
                 profileName.innerText = user.displayName;
@@ -80,18 +83,29 @@
             }
         }
 
+        function generateProfileUrl(userId) {
+            const profileUrl = `https://gghunter12.github.io/secured-web/profile/${userId}`;
+            document.getElementById("profile-url-text").innerText = profileUrl;
+            document.getElementById("profile-url").style.display = "block";
+        }
+
         // Check if the user is logged in from localStorage
         window.onload = () => {
             const userPhoto = localStorage.getItem("userPhoto");
             const userName = localStorage.getItem("userName");
             const userEmail = localStorage.getItem("userEmail");
+            const userId = localStorage.getItem("userId");
             
-            if (userPhoto && userName && userEmail) {
-                updateProfileUI({
+            if (userPhoto && userName && userEmail && userId) {
+                // Create a dummy user object from localStorage to simulate a signed-in user
+                const user = {
                     photoURL: userPhoto,
                     displayName: userName,
-                    email: userEmail
-                });
+                    email: userEmail,
+                    uid: userId
+                };
+                updateProfileUI(user);
+                generateProfileUrl(userId);
             }
         };
 
@@ -136,6 +150,12 @@
             <h2 id="profile-name"></h2>
             <p id="profile-email"></p>
             <button onclick="signOutUser()">Sign Out</button>
+        </div>
+
+        <!-- Profile URL -->
+        <div id="profile-url" style="display:none;">
+            <p>Share your profile: </p>
+            <span id="profile-url-text"></span>
         </div>
     </div>
 
