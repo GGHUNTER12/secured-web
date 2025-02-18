@@ -18,8 +18,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Check if user is logged in by checking localStorage for userEmail
     const userEmail = localStorage.getItem("userEmail");
-
-    // Check if the user is signed in
     const isUserSignedIn = userEmail !== null;
 
     // Apply stored background if found
@@ -47,9 +45,9 @@ document.addEventListener("DOMContentLoaded", function () {
         if (selectedValue) {
             body.style.background = selectedValue;
             localStorage.setItem("customBackground", selectedValue);
-            const newHoverColor = gradientHoverColors[selectedValue] || "#903aef"; // Default color if not a gradient
-            localStorage.setItem("logoHoverColor", newHoverColor);
-            updateLogoHoverColor(newHoverColor);
+            const hoverColor = gradientHoverColors[selectedValue] || "#903aef"; // Default if not in list
+            localStorage.setItem("logoHoverColor", hoverColor);
+            updateLogoHoverColor(hoverColor);
         } else {
             resetBackground();
         }
@@ -71,14 +69,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 window.onload = () => {
-    // Check if profile data exists in localStorage
     const userPhoto = localStorage.getItem("userPhoto");
-
-    // If there's a photo in localStorage, update the profile picture
-    if (userPhoto) {
-        document.getElementById("menu-profile-pic").src = userPhoto;
-    } else {
-        // If no user data, use a default avatar image
-        document.getElementById("menu-profile-pic").src = "https://www.mobile-calendar.com/img/main/user.webp";
-    }
+    document.getElementById("menu-profile-pic").src = userPhoto ? userPhoto : "https://www.mobile-calendar.com/img/main/user.webp";
 };
