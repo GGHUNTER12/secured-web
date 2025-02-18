@@ -2,12 +2,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const body = document.body;
     const dropdown = document.getElementById('style-dropdown');
     const storedBg = localStorage.getItem("customBackground");
-    const storedHoverColor = localStorage.getItem("logoHoverColor");
+    const storedLogoHoverColor = localStorage.getItem("logoHoverColor"); 
     const logoHoverStyle = document.createElement("style");
     document.head.appendChild(logoHoverStyle);
-
-    // Regex to check if the stored hover color is a valid hex color
-    const hexColorRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
 
     // Background to hover color mapping
     const gradientHoverColors = {
@@ -33,9 +30,9 @@ document.addEventListener("DOMContentLoaded", function () {
         body.classList.add("default-bg");
     }
 
-    // Apply stored hover color if it's a valid hex color
-    if (storedHoverColor && hexColorRegex.test(storedHoverColor)) {
-        updateLogoHoverColor(storedHoverColor);
+    // Apply stored logo hover color if found
+    if (storedLogoHoverColor) {
+        updateLogoHoverColor(storedLogoHoverColor);
     }
 
     // Event listener for dropdown change
@@ -50,17 +47,10 @@ document.addEventListener("DOMContentLoaded", function () {
         if (selectedValue) {
             body.style.background = selectedValue;
             localStorage.setItem("customBackground", selectedValue);
-            
-            // Get the new hover color
-            let newHoverColor = gradientHoverColors[selectedValue] || selectedValue; // If it's a solid hex, use it directly
-            
-            // Check if it's a valid hex color
-            if (!hexColorRegex.test(newHoverColor)) {
-                newHoverColor = "#903aef"; // Default if invalid
-            }
 
-            localStorage.setItem("logoHoverColor", newHoverColor);
-            updateLogoHoverColor(newHoverColor);
+            const hoverColor = gradientHoverColors[selectedValue] || "#903aef"; // Default hover color
+            localStorage.setItem("logoHoverColor", hoverColor);
+            updateLogoHoverColor(hoverColor);
         } else {
             resetBackground();
         }
@@ -77,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.removeItem("logoHoverColor");
         body.classList.add("default-bg");
         body.style.background = "";
-        updateLogoHoverColor("#903aef"); // Reset to default hover color
+        updateLogoHoverColor("#903aef"); // Reset hover color to default
     }
 });
 
