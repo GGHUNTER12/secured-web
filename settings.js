@@ -8,11 +8,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Background to hover color mapping
     const gradientHoverColors = {
-        "linear-gradient(135deg, #ff7eb3, #ff758c)": "#ff758c", // Pink Gradient
-        "linear-gradient(135deg, #42e695, #3bb2b8)": "#42e695", // Green Gradient
-        "linear-gradient(135deg, #89CFF0, #A3D8F4)": "#89CFF0", // Baby Blue Gradient
-        "linear-gradient(135deg, #ff9966, #ff5e62)": "#ff9966", // Orange Gradient
-        "linear-gradient(135deg, #ffeb3b, #f44336)": "#ffeb3b", // Sunset Gradient
+        "linear-gradient(135deg, #ff7eb3, #ff758c)": "#ff5e62", // Pink Gradient
+        "linear-gradient(135deg, #42e695, #3bb2b8)": "#3bb2b8", // Green Gradient
+        "linear-gradient(135deg, #89CFF0, #A3D8F4)": "#A3D8F4", // Baby Blue Gradient
+        "linear-gradient(135deg, #ff9966, #ff5e62)": "#ff5e62", // Orange Gradient
+        "linear-gradient(135deg, #ffeb3b, #f44336)": "#f44336", // Sunset Gradient
         "linear-gradient(135deg, #000000, #434343)": "#434343"  // Black Gradient
     };
 
@@ -58,7 +58,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Function to update the hover color for the logo
     function updateLogoHoverColor(color) {
-        logoHoverStyle.innerHTML = `.logo a:hover { color: ${color}; }`;
+        logoHoverStyle.innerHTML = `
+            .logo a:hover {
+                color: ${color};
+                transition: color 0.3s ease-in-out;
+            }
+        `;
     }
 
     // Function to reset to default
