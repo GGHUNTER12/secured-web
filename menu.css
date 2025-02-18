@@ -22,12 +22,8 @@
     transition: 0.3s;
 }
 
-:root {
-    --logo-hover-color: #903aef; /* Default */
-}
-
 .logo a:hover {
-    color: var(--logo-hover-color);
+    color: #903aef;
 }
 
 nav ul {
