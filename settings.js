@@ -3,8 +3,14 @@ document.addEventListener("DOMContentLoaded", function () {
     const dropdown = document.getElementById('style-dropdown');
     const storedBg = localStorage.getItem("customBackground");
     const storedHoverColor = localStorage.getItem("logoHoverColor");
-    const logoHoverStyle = document.createElement("style");
-    document.head.appendChild(logoHoverStyle);
+
+    // Create a style tag if it doesn't exist
+    let logoHoverStyle = document.getElementById("logo-hover-style");
+    if (!logoHoverStyle) {
+        logoHoverStyle = document.createElement("style");
+        logoHoverStyle.id = "logo-hover-style";
+        document.head.appendChild(logoHoverStyle);
+    }
 
     // Background to hover color mapping
     const gradientHoverColors = {
@@ -18,6 +24,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Check if user is logged in by checking localStorage for userEmail
     const userEmail = localStorage.getItem("userEmail");
+
+    // Check if the user is signed in
     const isUserSignedIn = userEmail !== null;
 
     // Apply stored background if found
@@ -45,9 +53,9 @@ document.addEventListener("DOMContentLoaded", function () {
         if (selectedValue) {
             body.style.background = selectedValue;
             localStorage.setItem("customBackground", selectedValue);
-            const hoverColor = gradientHoverColors[selectedValue] || "#903aef"; // Default if not in list
-            localStorage.setItem("logoHoverColor", hoverColor);
-            updateLogoHoverColor(hoverColor);
+            const newHoverColor = gradientHoverColors[selectedValue] || "#903aef"; // Default color if not a gradient
+            localStorage.setItem("logoHoverColor", newHoverColor);
+            updateLogoHoverColor(newHoverColor);
         } else {
             resetBackground();
         }
@@ -55,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Function to update the hover color for the logo
     function updateLogoHoverColor(color) {
-        logoHoverStyle.innerHTML = `.logo a:hover { color: ${color}; }`;
+        logoHoverStyle.innerHTML = `.logo a:hover { color: ${color} !important; }`;
     }
 
     // Function to reset to default
@@ -69,6 +77,14 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 window.onload = () => {
+    // Check if profile data exists in localStorage
     const userPhoto = localStorage.getItem("userPhoto");
-    document.getElementById("menu-profile-pic").src = userPhoto ? userPhoto : "https://www.mobile-calendar.com/img/main/user.webp";
+
+    // If there's a photo in localStorage, update the profile picture
+    if (userPhoto) {
+        document.getElementById("menu-profile-pic").src = userPhoto;
+    } else {
+        // If no user data, use a default avatar image
+        document.getElementById("menu-profile-pic").src = "https://www.mobile-calendar.com/img/main/user.webp";
+    }
 };
