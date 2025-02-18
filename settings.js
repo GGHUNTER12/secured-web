@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const logoHoverStyle = document.createElement("style");
     document.head.appendChild(logoHoverStyle);
 
-    // Background to hover color mapping
+    // Background-to-hover color mapping
     const gradientHoverColors = {
         "linear-gradient(135deg, #ff7eb3, #ff758c)": "#ff5e62", // Pink Gradient
         "linear-gradient(135deg, #42e695, #3bb2b8)": "#3bb2b8", // Green Gradient
@@ -16,23 +16,22 @@ document.addEventListener("DOMContentLoaded", function () {
         "linear-gradient(135deg, #000000, #434343)": "#434343"  // Black Gradient
     };
 
-    // Check if user is logged in by checking localStorage for userEmail
+    // Check if user is logged in
     const userEmail = localStorage.getItem("userEmail");
-
-    // Check if the user is signed in
     const isUserSignedIn = userEmail !== null;
 
     // Apply stored background if found
     if (storedBg) {
         body.style.background = storedBg;
-        dropdown.value = storedBg;
+        // Ensure dropdown value matches (only set if it exists in options)
+        const validOption = [...dropdown.options].some(opt => opt.value === storedBg);
+        if (validOption) dropdown.value = storedBg;
+
+        // Apply hover color for stored background
+        const hoverColor = gradientHoverColors[storedBg] || "#903aef";
+        updateLogoHoverColor(hoverColor);
     } else {
         body.classList.add("default-bg");
-    }
-
-    // Apply stored logo hover color if found
-    if (storedLogoHoverColor) {
-        updateLogoHoverColor(storedLogoHoverColor);
     }
 
     // Event listener for dropdown change
@@ -48,7 +47,8 @@ document.addEventListener("DOMContentLoaded", function () {
             body.style.background = selectedValue;
             localStorage.setItem("customBackground", selectedValue);
 
-            const hoverColor = gradientHoverColors[selectedValue] || "#903aef"; // Default hover color
+            // Determine hover color
+            const hoverColor = gradientHoverColors[selectedValue] || "#903aef";
             localStorage.setItem("logoHoverColor", hoverColor);
             updateLogoHoverColor(hoverColor);
         } else {
@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function updateLogoHoverColor(color) {
         logoHoverStyle.innerHTML = `
             .logo a:hover {
-                color: ${color};
+                color: ${color} !important;
                 transition: color 0.3s ease-in-out;
             }
         `;
