@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const body = document.body;
     const dropdown = document.getElementById('style-dropdown');
     const storedBg = localStorage.getItem("customBackground");
+    const storedHoverColor = localStorage.getItem("logoHoverColor");
     const logoHoverStyle = document.createElement("style");
     document.head.appendChild(logoHoverStyle);
 
@@ -25,9 +26,13 @@ document.addEventListener("DOMContentLoaded", function () {
     if (storedBg) {
         body.style.background = storedBg;
         dropdown.value = storedBg;
-        updateLogoHoverColor(storedBg);
     } else {
         body.classList.add("default-bg");
+    }
+
+    // Apply stored hover color if found
+    if (storedHoverColor) {
+        updateLogoHoverColor(storedHoverColor);
     }
 
     // Event listener for dropdown change
@@ -42,24 +47,26 @@ document.addEventListener("DOMContentLoaded", function () {
         if (selectedValue) {
             body.style.background = selectedValue;
             localStorage.setItem("customBackground", selectedValue);
-            updateLogoHoverColor(selectedValue);
+            const newHoverColor = gradientHoverColors[selectedValue] || "#903aef"; // Default color if not a gradient
+            localStorage.setItem("logoHoverColor", newHoverColor);
+            updateLogoHoverColor(newHoverColor);
         } else {
             resetBackground();
         }
     });
 
     // Function to update the hover color for the logo
-    function updateLogoHoverColor(bgValue) {
-        const hoverColor = gradientHoverColors[bgValue] || "#903aef"; // Default color
-        logoHoverStyle.innerHTML = `.logo a:hover { color: ${hoverColor}; }`;
+    function updateLogoHoverColor(color) {
+        logoHoverStyle.innerHTML = `.logo a:hover { color: ${color}; }`;
     }
 
     // Function to reset to default
     function resetBackground() {
         localStorage.removeItem("customBackground");
+        localStorage.removeItem("logoHoverColor");
         body.classList.add("default-bg");
         body.style.background = "";
-        updateLogoHoverColor(""); // Reset hover color
+        updateLogoHoverColor("#903aef"); // Reset to default hover color
     }
 });
 
