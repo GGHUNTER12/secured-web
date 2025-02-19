@@ -63,12 +63,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Monitor cookies and reset if modified
     let originalCookies = document.cookie;
-    setInterval(() => {
+
+    // Function to handle cookie monitoring
+    const monitorCookies = () => {
         if (document.cookie !== originalCookies) {
             console.warn("Cookies were modified! Resetting...");
             document.cookie = originalCookies; // Restore original cookies
+            originalCookies = document.cookie; // Update the original cookies to reflect changes
         }
-    }, 1000);
+    };
+
+    // Check for cookies changes every 1 second
+    setInterval(monitorCookies, 1000);
 });
 
 window.onload = () => {
