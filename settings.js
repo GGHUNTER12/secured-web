@@ -12,52 +12,35 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     };
 
-    // Function to reset modified localStorage values
-    const resetLocalStorage = () => {
-        console.warn("⚠️ localStorage was modified! Resetting values...");
-        localStorage.setItem("userEmail", originalStorage.userEmail);
-        localStorage.setItem("userName", originalStorage.userName);
-        localStorage.setItem("userPhoto", originalStorage.userPhoto);
-        localStorage.setItem("customBackground", originalStorage.customBackground);
-    };
-
-    // Store original localStorage values
+    // Store original values to prevent tampering
     const originalStorage = {
-        userEmail: localStorage.getItem("userEmail") || "",
-        userName: localStorage.getItem("userName") || "",
-        userPhoto: localStorage.getItem("userPhoto") || "",
-        customBackground: localStorage.getItem("customBackground") || "",
+        userEmail: localStorage.getItem("userEmail"),
+        userName: localStorage.getItem("userName"),
+        userPhoto: localStorage.getItem("userPhoto"),
+        customBackground: localStorage.getItem("customBackground")
     };
 
-    // Function to monitor localStorage changes
-    const monitorLocalStorage = () => {
-        for (let key in originalStorage) {
-            if (localStorage.getItem(key) !== originalStorage[key]) {
-                resetLocalStorage();
-                break;
-            }
-        }
-    };
-
-    // Check for localStorage changes every second
-    setInterval(monitorLocalStorage, 1000);
-
-    // Set profile data
-    const userEmail = decodeBase64(originalStorage.userEmail);
-    const userName = decodeBase64(originalStorage.userName);
+    // Decode user data
+    const userEmail = decodeBase64(originalStorage.userEmail) || null;
+    const userName = decodeBase64(originalStorage.userName) || null;
     const userPhoto = decodeBase64(originalStorage.userPhoto) || "https://www.mobile-calendar.com/img/main/user.webp";
 
+    // Profile Photo
     const profilePicElement = document.getElementById("menu-profile-pic");
-    if (profilePicElement) profilePicElement.src = userPhoto;
+    if (profilePicElement) {
+        profilePicElement.src = userPhoto;
+    }
 
+    // Profile Name & Email
     const profileNameElement = document.getElementById("profile-name");
     const profileEmailElement = document.getElementById("profile-email");
+
     if (profileNameElement && profileEmailElement) {
         profileNameElement.innerText = userName || "Unknown User";
         profileEmailElement.innerText = userEmail || "No Email";
     }
 
-    // Set background
+    // Set Background
     if (storedBg) {
         body.style.background = storedBg;
         dropdown.value = storedBg;
@@ -65,10 +48,11 @@ document.addEventListener("DOMContentLoaded", function () {
         body.classList.add("default-bg");
     }
 
-    dropdown.addEventListener("change", function () {
-        if (!originalStorage.userEmail) {
+    // Event listener for background change
+    dropdown.addEventListener('change', function () {
+        if (!userEmail) {
             alert("You need to sign in to change the background!");
-            dropdown.value = storedBg || "";
+            dropdown.value = storedBg || ""; 
             return;
         }
 
@@ -77,10 +61,39 @@ document.addEventListener("DOMContentLoaded", function () {
             body.style.background = selectedValue;
             localStorage.setItem("customBackground", selectedValue);
         } else {
-            localStorage.removeItem("customBackground");
-            body.classList.add("default-bg");
-            body.style.background = "";
-            dropdown.value = "";
+            resetBackground();
         }
     });
+
+    // Reset background to default
+    function resetBackground() {
+        localStorage.removeItem("customBackground");
+        body.classList.add("default-bg");
+        body.style.background = "";
+        dropdown.value = ""; 
+    }
+
+    // Function to monitor localStorage changes
+    const monitorLocalStorage = () => {
+        for (const key in originalStorage) {
+            const currentValue = localStorage.getItem(key);
+            if (currentValue !== originalStorage[key]) {
+                console.warn(`⚠️ LocalStorage key '${key}' was modified! Resetting...`);
+                localStorage.setItem(key, originalStorage[key]); // Restore original value
+            }
+        }
+    };
+
+    // Monitor localStorage every 1 second
+    setInterval(monitorLocalStorage, 1000);
 });
+
+window.onload = () => {
+    const userPhotoEncoded = localStorage.getItem("userPhoto");
+    const decodedUserPhoto = userPhotoEncoded ? atob(userPhotoEncoded) : "https://www.mobile-calendar.com/img/main/user.webp";
+
+    const profilePicElement = document.getElementById("menu-profile-pic");
+    if (profilePicElement) {
+        profilePicElement.src = decodedUserPhoto;
+    }
+};
