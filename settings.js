@@ -35,19 +35,14 @@ document.addEventListener("DOMContentLoaded", function () {
         body.style.background = "";
     }
 
-    // Function to reset cookies to a default value
-    function resetCookies() {
-        const cookies = document.cookie.split(";");
-
-        cookies.forEach(cookie => {
-            const cookieName = cookie.split("=")[0].trim();
-            // Set each cookie with a past expiration date to remove it
-            document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`;
-        });
-    }
-
-    // Call resetCookies to reset on page load
-    resetCookies();
+    // Monitor cookies and reset if modified
+    let originalCookies = document.cookie;
+    setInterval(() => {
+        if (document.cookie !== originalCookies) {
+            console.warn("Cookies were modified! Resetting...");
+            document.cookie = originalCookies; // Restore original cookies
+        }
+    }, 1000);
 });
 
 window.onload = () => {
