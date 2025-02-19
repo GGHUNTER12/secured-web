@@ -1,7 +1,10 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () { 
     const body = document.body;
     const dropdown = document.getElementById('style-dropdown');
     const storedBg = localStorage.getItem("customBackground");
+
+    const userEmailEncoded = localStorage.getItem("userEmail");
+    const isUserSignedIn = userEmailEncoded !== null;
 
     const decodeBase64 = (encodedData) => {
         try {
@@ -12,26 +15,17 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     };
 
-    // Store original values to prevent tampering
-    const originalStorage = {
-        userEmail: localStorage.getItem("userEmail"),
-        userName: localStorage.getItem("userName"),
-        userPhoto: localStorage.getItem("userPhoto"),
-        customBackground: localStorage.getItem("customBackground")
-    };
+    const userEmail = userEmailEncoded ? decodeBase64(userEmailEncoded) : null;
+    const userNameEncoded = localStorage.getItem("userName");
+    const userName = userNameEncoded ? decodeBase64(userNameEncoded) : null;
+    const userPhotoEncoded = localStorage.getItem("userPhoto");
+    const userPhoto = userPhotoEncoded ? decodeBase64(userPhotoEncoded) : "https://www.mobile-calendar.com/img/main/user.webp";
 
-    // Decode user data
-    const userEmail = decodeBase64(originalStorage.userEmail) || null;
-    const userName = decodeBase64(originalStorage.userName) || null;
-    const userPhoto = decodeBase64(originalStorage.userPhoto) || "https://www.mobile-calendar.com/img/main/user.webp";
-
-    // Profile Photo
     const profilePicElement = document.getElementById("menu-profile-pic");
     if (profilePicElement) {
         profilePicElement.src = userPhoto;
     }
 
-    // Profile Name & Email
     const profileNameElement = document.getElementById("profile-name");
     const profileEmailElement = document.getElementById("profile-email");
 
@@ -40,7 +34,6 @@ document.addEventListener("DOMContentLoaded", function () {
         profileEmailElement.innerText = userEmail || "No Email";
     }
 
-    // Set Background
     if (storedBg) {
         body.style.background = storedBg;
         dropdown.value = storedBg;
@@ -48,9 +41,8 @@ document.addEventListener("DOMContentLoaded", function () {
         body.classList.add("default-bg");
     }
 
-    // Event listener for background change
     dropdown.addEventListener('change', function () {
-        if (!userEmail) {
+        if (!isUserSignedIn) {
             alert("You need to sign in to change the background!");
             dropdown.value = storedBg || ""; 
             return;
@@ -65,7 +57,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // Reset background to default
     function resetBackground() {
         localStorage.removeItem("customBackground");
         body.classList.add("default-bg");
@@ -73,25 +64,39 @@ document.addEventListener("DOMContentLoaded", function () {
         dropdown.value = ""; 
     }
 
-    // Function to monitor localStorage changes
-    const monitorLocalStorage = () => {
-        for (const key in originalStorage) {
-            const currentValue = localStorage.getItem(key);
-            if (currentValue !== originalStorage[key]) {
-                console.warn(`⚠️ LocalStorage key '${key}' was modified! Resetting...`);
-                localStorage.setItem(key, originalStorage[key]); // Restore original value
-            }
+    const getCookies = () => {
+        return document.cookie.split("; ").filter(cookie => cookie.trim() !== "");
+    };
+
+    const originalCookies = getCookies();
+
+    const resetCookies = () => {
+        document.cookie.split("; ").forEach(cookie => {
+            const [cookieName] = cookie.split("=");
+            document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
+        });
+
+        originalCookies.forEach(cookie => {
+            document.cookie = cookie;
+        });
+    };
+
+    const monitorCookies = () => {
+        const currentCookies = getCookies();
+
+        if (currentCookies.length !== originalCookies.length || !currentCookies.every((cookie, i) => cookie === originalCookies[i])) {
+            console.warn("Cookies were modified! Resetting...");
+            resetCookies();
         }
     };
 
-    // Monitor localStorage every 1 second
-    setInterval(monitorLocalStorage, 1000);
+    setInterval(monitorCookies, 1000);
 });
 
 window.onload = () => {
     const userPhotoEncoded = localStorage.getItem("userPhoto");
     const decodedUserPhoto = userPhotoEncoded ? atob(userPhotoEncoded) : "https://www.mobile-calendar.com/img/main/user.webp";
-
+    
     const profilePicElement = document.getElementById("menu-profile-pic");
     if (profilePicElement) {
         profilePicElement.src = decodedUserPhoto;
