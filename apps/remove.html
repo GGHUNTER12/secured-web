@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secured V2</title>
+    <link rel="icon" type="image/x-icon" href="images/secured-favicon.png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600&display=swap">
+    <link rel="stylesheet" href="/secured-web/style.css">
+    
+    <style>
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #button {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 10; 
+        }
+
+        #fullscreen-iframe {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Back Button -->
+    <button id="button" onclick="window.location.href='https://gghunter12.github.io/secured-web/'">Back</button>
+
+    <!-- Full-Screen iframe -->
+    <iframe src="https://gghunter12.github.io/secured-web/apps/remove.html" id="fullscreen-iframe"></iframe>
+
+    <!-- Scripts at the bottom -->
+    <script src="/secured-web/particles.js"></script>
+    <script src="/secured-web/app.js"></script>
+    <script src="/secured-web/settings.js"></script>
+    <script src="/secured-web/analytics.js"></script>
+</body>
+</html>
