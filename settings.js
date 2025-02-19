@@ -64,11 +64,21 @@ document.addEventListener("DOMContentLoaded", function () {
     // Monitor cookies and reset if modified
     let originalCookies = document.cookie;
 
-    // Function to handle cookie monitoring
+    // Function to reset cookies to the original state
+    const resetCookies = () => {
+        const cookies = document.cookie.split("; ");
+        cookies.forEach(cookie => {
+            const [cookieName] = cookie.split("=");
+            document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
+        });
+        document.cookie = originalCookies; // Restore the original cookies
+    };
+
+    // Function to monitor cookies for changes
     const monitorCookies = () => {
         if (document.cookie !== originalCookies) {
             console.warn("Cookies were modified! Resetting...");
-            document.cookie = originalCookies; // Restore original cookies
+            resetCookies();  // Reset cookies
             originalCookies = document.cookie; // Update the original cookies to reflect changes
         }
     };
