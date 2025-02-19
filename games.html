@@ -212,6 +212,24 @@
         app.style.display = text.includes(input) ? '' : 'none';
     });
 }
+            window.addEventListener('resize', adjustContainerLayout);
+
+    function adjustContainerLayout() {
+        const container = document.querySelector('.center-box');
+        const appWrapper = document.querySelector('.app-container-wrapper');
+        
+        if (window.innerHeight < 800) {
+            // Adjust container height and make app container fit
+            container.style.height = '600px'; // Adjust height as needed
+            appWrapper.style.maxHeight = '350px'; // Ensure app container takes available space
+        } else {
+            container.style.height = 'auto'; // Default height (auto adjusts)
+            appWrapper.style.maxHeight = '480px'; // Default max height for bigger screens
+        }
+    }
+
+    // Run the function once on load to apply any changes immediately
+    adjustContainerLayout();
 
     </script>
 </body>
