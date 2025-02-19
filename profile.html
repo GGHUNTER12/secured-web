@@ -97,6 +97,39 @@
 
         window.signIn = signIn;
         window.signOutUser = signOutUser;
+
+        // Export data function
+        function exportData() {
+            const data = JSON.stringify(localStorage);  // Convert localStorage to JSON string
+            const blob = new Blob([data], { type: 'application/json' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'securedweb.save';  // Set the export file name
+            link.click();
+        }
+
+        // Import data function
+        function importData(event) {
+            const file = event.target.files[0];  // Get the selected file
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const importedData = JSON.parse(e.target.result);  // Parse the file content
+                    for (const key in importedData) {
+                        if (importedData.hasOwnProperty(key)) {
+                            localStorage.setItem(key, importedData[key]);  // Restore data to localStorage
+                        }
+                    }
+                    location.reload();  // Reload the page to apply the imported data
+                };
+                reader.readAsText(file);  // Read the file as text
+            }
+        }
+
+        // Expose exportData and importData functions globally so the buttons can access them
+        window.exportData = exportData;
+        window.importData = importData;
+
     </script>
 </head>
 <body>
@@ -136,6 +169,13 @@
             <h2 id="profile-name"></h2>
             <p id="profile-email"></p>
             <button onclick="signOutUser()">Sign Out</button>
+        </div>
+
+        <!-- Import/Export Buttons -->
+        <div>
+            <button onclick="exportData()">Export Data</button>
+            <input type="file" id="importFile" onchange="importData(event)" style="display:none;" />
+            <button onclick="document.getElementById('importFile').click()">Import Data</button>
         </div>
     </div>
 
