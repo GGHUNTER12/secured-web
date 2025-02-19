@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const userEmailEncoded = localStorage.getItem("userEmail");
     const isUserSignedIn = userEmailEncoded !== null;
 
-    // Decode base64 safely
     const decodeBase64 = (encodedData) => {
         try {
             return atob(encodedData);
@@ -16,20 +15,17 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     };
 
-    // Decode user data
     const userEmail = userEmailEncoded ? decodeBase64(userEmailEncoded) : null;
     const userNameEncoded = localStorage.getItem("userName");
     const userName = userNameEncoded ? decodeBase64(userNameEncoded) : null;
     const userPhotoEncoded = localStorage.getItem("userPhoto");
     const userPhoto = userPhotoEncoded ? decodeBase64(userPhotoEncoded) : "https://www.mobile-calendar.com/img/main/user.webp";
 
-    // Set profile photo if available
     const profilePicElement = document.getElementById("menu-profile-pic");
     if (profilePicElement) {
         profilePicElement.src = userPhoto;
     }
 
-    // Check if profile name and email elements exist before modifying them
     const profileNameElement = document.getElementById("profile-name");
     const profileEmailElement = document.getElementById("profile-email");
 
@@ -38,7 +34,6 @@ document.addEventListener("DOMContentLoaded", function () {
         profileEmailElement.innerText = userEmail || "No Email";
     }
 
-    // Set the background based on stored value
     if (storedBg) {
         body.style.background = storedBg;
         dropdown.value = storedBg;
@@ -46,11 +41,10 @@ document.addEventListener("DOMContentLoaded", function () {
         body.classList.add("default-bg");
     }
 
-    // Event listener for background change
     dropdown.addEventListener('change', function () {
         if (!isUserSignedIn) {
             alert("You need to sign in to change the background!");
-            dropdown.value = storedBg || ""; // Reset to previous valid background
+            dropdown.value = storedBg || ""; 
             return;
         }
 
@@ -63,41 +57,45 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // Reset background to default
     function resetBackground() {
         localStorage.removeItem("customBackground");
         body.classList.add("default-bg");
         body.style.background = "";
-        dropdown.value = ""; // Ensure dropdown resets visually
+        dropdown.value = ""; 
     }
 
-    // Function to reset cookies
+    const getDecodedCookies = () => {
+        const cookies = document.cookie.split("; ").map(cookie => {
+            const [name, value] = cookie.split("=");
+            return { name, value: decodeBase64(value) };
+        });
+        return cookies.filter(cookie => cookie.value); // Filter out invalid cookies
+    };
+
+    const originalCookies = getDecodedCookies();
+
     const resetCookies = () => {
-        const cookies = document.cookie.split("; ");
-        cookies.forEach(cookie => {
+        document.cookie.split("; ").forEach(cookie => {
             const [cookieName] = cookie.split("=");
             document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
         });
-        // After clearing the cookies, restore the original cookies
+
         originalCookies.forEach(cookie => {
-            document.cookie = cookie;
+            const encodedValue = btoa(cookie.value); // Re-encode value to Base64
+            document.cookie = `${cookie.name}=${encodedValue}; path=/`;
         });
     };
 
-    // Function to monitor cookies for changes
-    let originalCookies = document.cookie.split("; ");
     const monitorCookies = () => {
-        const currentCookies = document.cookie.split("; ");
-        
-        // If cookies are different, reset them
-        if (currentCookies.length !== originalCookies.length || !currentCookies.every((cookie, i) => cookie === originalCookies[i])) {
+        const currentCookies = getDecodedCookies();
+
+        // If cookies are different after decoding, reset them
+        if (currentCookies.length !== originalCookies.length || !currentCookies.every((cookie, i) => cookie.value === originalCookies[i].value)) {
             console.warn("Cookies were modified! Resetting...");
             resetCookies();
-            originalCookies = currentCookies; // Update original cookies to reflect current state
         }
     };
 
-    // Check for cookies changes every 1 second
     setInterval(monitorCookies, 1000);
 });
 
