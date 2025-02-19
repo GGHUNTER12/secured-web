@@ -18,8 +18,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Decode the values if they are stored
     const userEmail = userEmailEncoded ? decodeBase64(userEmailEncoded) : null;
-    const userName = localStorage.getItem("userName") ? decodeBase64(localStorage.getItem("userName")) : null;
-    const userPhoto = localStorage.getItem("userPhoto") ? decodeBase64(localStorage.getItem("userPhoto")) : "https://www.mobile-calendar.com/img/main/user.webp";
+    const userNameEncoded = localStorage.getItem("userName");
+    const userName = userNameEncoded ? decodeBase64(userNameEncoded) : null; // Safely decode userName
+    const userPhotoEncoded = localStorage.getItem("userPhoto");
+    const userPhoto = userPhotoEncoded ? decodeBase64(userPhotoEncoded) : "https://www.mobile-calendar.com/img/main/user.webp";
 
     // Set profile photo if available
     if (userPhoto) {
