@@ -26,12 +26,13 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("menu-profile-pic").src = userPhoto;
     }
 
-    // You can display the decoded user name and email if needed
+    // Display the decoded user name and email if needed
     if (userName && userEmail) {
         document.getElementById("profile-name").innerText = userName;
         document.getElementById("profile-email").innerText = userEmail;
     }
 
+    // Set the background based on stored value
     if (storedBg) {
         body.style.background = storedBg;
         dropdown.value = storedBg;
@@ -39,6 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
         body.classList.add("default-bg");
     }
 
+    // Event listener for background change
     dropdown.addEventListener('change', function () {
         if (!isUserSignedIn) {
             alert("You need to sign in to change the background!");
@@ -55,31 +57,36 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+    // Reset background to default
     function resetBackground() {
         localStorage.removeItem("customBackground");
         body.classList.add("default-bg");
         body.style.background = "";
     }
 
-    // Monitor cookies and reset if modified
-    let originalCookies = document.cookie;
-
-    // Function to reset cookies to the original state
+    // Function to reset cookies
     const resetCookies = () => {
         const cookies = document.cookie.split("; ");
         cookies.forEach(cookie => {
             const [cookieName] = cookie.split("=");
             document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
         });
-        document.cookie = originalCookies; // Restore the original cookies
+        // After clearing the cookies, restore the original cookies
+        originalCookies.forEach(cookie => {
+            document.cookie = cookie;
+        });
     };
 
     // Function to monitor cookies for changes
+    let originalCookies = document.cookie.split("; ");
     const monitorCookies = () => {
-        if (document.cookie !== originalCookies) {
+        const currentCookies = document.cookie.split("; ");
+        
+        // If cookies are different, reset them
+        if (currentCookies.length !== originalCookies.length || !currentCookies.every((cookie, i) => cookie === originalCookies[i])) {
             console.warn("Cookies were modified! Resetting...");
-            resetCookies();  // Reset cookies
-            originalCookies = document.cookie; // Update the original cookies to reflect changes
+            resetCookies();
+            originalCookies = currentCookies; // Update original cookies to reflect current state
         }
     };
 
