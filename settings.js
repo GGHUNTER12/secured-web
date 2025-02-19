@@ -75,10 +75,12 @@ document.addEventListener("DOMContentLoaded", function () {
         return cookies.filter(cookie => cookie.value); // Filter out invalid cookies
     };
 
-    const originalCookies = getDecodedCookies();
+    // Store original cookies
+    let originalCookies = getDecodedCookies();
 
     // Reset cookies function
     const resetCookies = () => {
+        console.warn("⚠️ Resetting cookies due to modification!");
         document.cookie.split("; ").forEach(cookie => {
             const [cookieName] = cookie.split("=");
             document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
@@ -90,19 +92,34 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     };
 
-    const monitorCookies = () => {
-        const currentCookies = getDecodedCookies();
-        console.log("Original Cookies:", originalCookies);
-        console.log("Current Cookies:", currentCookies);
+    // Monitor localStorage
+    let originalLocalStorage = { ...localStorage };
 
-        // Compare decoded cookies, log them for debugging
+    const resetLocalStorage = () => {
+        console.warn("⚠️ Resetting localStorage due to modification!");
+        localStorage.clear();
+        for (let key in originalLocalStorage) {
+            localStorage.setItem(key, originalLocalStorage[key]);
+        }
+    };
+
+    const monitorData = () => {
+        // Monitor Cookies
+        const currentCookies = getDecodedCookies();
         if (currentCookies.length !== originalCookies.length || !currentCookies.every((cookie, i) => cookie.value === originalCookies[i].value)) {
             console.warn("Cookies were modified! Resetting...");
             resetCookies();
         }
+
+        // Monitor Local Storage
+        const currentLocalStorage = { ...localStorage };
+        if (JSON.stringify(currentLocalStorage) !== JSON.stringify(originalLocalStorage)) {
+            console.warn("LocalStorage was modified! Resetting...");
+            resetLocalStorage();
+        }
     };
 
-    setInterval(monitorCookies, 1000);
+    setInterval(monitorData, 1000);
 });
 
 window.onload = () => {
