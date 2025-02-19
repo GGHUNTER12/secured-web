@@ -1,10 +1,36 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () { 
     const body = document.body;
     const dropdown = document.getElementById('style-dropdown');
     const storedBg = localStorage.getItem("customBackground");
 
-    const userEmail = localStorage.getItem("userEmail");
-    const isUserSignedIn = userEmail !== null;
+    const userEmailEncoded = localStorage.getItem("userEmail");
+    const isUserSignedIn = userEmailEncoded !== null;
+
+    // Decode the base64-encoded email, name, and profile picture
+    const decodeBase64 = (encodedData) => {
+        try {
+            return atob(encodedData);
+        } catch (e) {
+            console.error("Error decoding base64 data:", e);
+            return null;
+        }
+    };
+
+    // Decode the values if they are stored
+    const userEmail = userEmailEncoded ? decodeBase64(userEmailEncoded) : null;
+    const userName = localStorage.getItem("userName") ? decodeBase64(localStorage.getItem("userName")) : null;
+    const userPhoto = localStorage.getItem("userPhoto") ? decodeBase64(localStorage.getItem("userPhoto")) : "https://www.mobile-calendar.com/img/main/user.webp";
+
+    // Set profile photo if available
+    if (userPhoto) {
+        document.getElementById("menu-profile-pic").src = userPhoto;
+    }
+
+    // You can display the decoded user name and email if needed
+    if (userName && userEmail) {
+        document.getElementById("profile-name").innerText = userName;
+        document.getElementById("profile-email").innerText = userEmail;
+    }
 
     if (storedBg) {
         body.style.background = storedBg;
@@ -46,6 +72,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 window.onload = () => {
-    const userPhoto = localStorage.getItem("userPhoto");
-    document.getElementById("menu-profile-pic").src = userPhoto || "https://www.mobile-calendar.com/img/main/user.webp";
+    const userPhotoEncoded = localStorage.getItem("userPhoto");
+    const decodedUserPhoto = userPhotoEncoded ? atob(userPhotoEncoded) : "https://www.mobile-calendar.com/img/main/user.webp";
+    document.getElementById("menu-profile-pic").src = decodedUserPhoto;
 };
