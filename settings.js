@@ -74,54 +74,6 @@ document.addEventListener("DOMContentLoaded", function () {
         body.style.background = "";
         if (dropdown) dropdown.value = "";
     }
-
-    // **Cookie Protection**
-    const hashString = (str) => {
-        let hash = 0;
-        for (let i = 0; i < str.length; i++) {
-            hash = (hash << 5) - hash + str.charCodeAt(i);
-            hash |= 0;
-        }
-        return hash;
-    };
-
-    const getCookies = () => document.cookie.split("; ").filter(cookie => cookie.trim() !== "");
-
-    const decodeCookies = (cookies) => {
-        return cookies.map(cookie => {
-            const [name, value] = cookie.split("=");
-            return `${name}=${decodeBase64(value) || value}`;
-        });
-    };
-
-    const originalCookies = decodeCookies(getCookies());
-    let originalHash = hashString(originalCookies.join("; "));
-
-    const resetCookies = () => {
-        console.warn("Cookies were modified! Resetting...");
-
-        document.cookie.split("; ").forEach(cookie => {
-            const [cookieName] = cookie.split("=");
-            document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
-        });
-
-        originalCookies.forEach(cookie => {
-            document.cookie = cookie;
-        });
-
-        originalHash = hashString(originalCookies.join("; "));
-    };
-
-    const monitorCookies = () => {
-        const currentCookies = decodeCookies(getCookies());
-        const currentHash = hashString(currentCookies.join("; "));
-
-        if (currentHash !== originalHash) {
-            resetCookies();
-        }
-    };
-
-    setInterval(monitorCookies, 1000);
 });
 
 window.onload = () => {
