@@ -1,6 +1,6 @@
-document.addEventListener('DOMContentLoaded', function () {
-    // Check if particles are enabled from localStorage
-    const particlesEnabled = localStorage.getItem('particlesEnabled') === 'true';
+document.addEventListener('DOMContentLoaded', function () { 
+    // Check if particles are enabled from localStorage, defaulting to true if not set
+    const particlesEnabled = localStorage.getItem('particlesEnabled') !== 'false';
 
     if (particlesEnabled) {
         // Initialize particles if enabled
