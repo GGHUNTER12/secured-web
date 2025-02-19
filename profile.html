@@ -34,10 +34,10 @@
                 .then((result) => {
                     const user = result.user;
                     updateProfileUI(user);
-                    // Save user data in localStorage
-                    localStorage.setItem("userPhoto", user.photoURL);
-                    localStorage.setItem("userName", user.displayName);
-                    localStorage.setItem("userEmail", user.email);
+                    // Save user data in Base64 encoded localStorage
+                    localStorage.setItem("userPhoto", btoa(user.photoURL));  // Encoding in Base64
+                    localStorage.setItem("userName", btoa(user.displayName));
+                    localStorage.setItem("userEmail", btoa(user.email));
                 })
                 .catch((error) => {
                     console.error("Sign-in error", error);
@@ -80,7 +80,7 @@
             }
         }
 
-        // Check if the user is logged in from localStorage
+        // Check if the user is logged in from localStorage (decoding Base64)
         window.onload = () => {
             const userPhoto = localStorage.getItem("userPhoto");
             const userName = localStorage.getItem("userName");
@@ -88,9 +88,9 @@
             
             if (userPhoto && userName && userEmail) {
                 updateProfileUI({
-                    photoURL: userPhoto,
-                    displayName: userName,
-                    email: userEmail
+                    photoURL: atob(userPhoto),  // Decoding from Base64
+                    displayName: atob(userName),
+                    email: atob(userEmail)
                 });
             }
         };
@@ -98,23 +98,25 @@
         window.signIn = signIn;
         window.signOutUser = signOutUser;
 
-        // Export data function
+        // Export data function (encoding Base64 before export)
         function exportData() {
             const data = JSON.stringify(localStorage);  // Convert localStorage to JSON string
-            const blob = new Blob([data], { type: 'application/json' });
+            const encodedData = btoa(data);  // Encode data in Base64
+            const blob = new Blob([encodedData], { type: 'application/json' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
             link.download = 'securedweb.save';  // Set the export file name
             link.click();
         }
 
-        // Import data function
+        // Import data function (decoding Base64 after import)
         function importData(event) {
             const file = event.target.files[0];  // Get the selected file
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    const importedData = JSON.parse(e.target.result);  // Parse the file content
+                    const decodedData = atob(e.target.result);  // Decode Base64 data
+                    const importedData = JSON.parse(decodedData);  // Parse the decoded data
                     for (const key in importedData) {
                         if (importedData.hasOwnProperty(key)) {
                             localStorage.setItem(key, importedData[key]);  // Restore data to localStorage
