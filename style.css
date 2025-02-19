@@ -139,25 +139,32 @@ p {
     margin-bottom: 5px;
 }
 
-/* Button Styles */
+/* Sleek Blurred Button Styles */
 button {
-    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    background: rgba(255, 255, 255, 0.2); /* Soft translucent white */
     color: white;
     font-size: 1.2rem;
     padding: 15px 30px;
     border: none;
     border-radius: 30px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
     margin: 10px; /* Add space between buttons */
+    backdrop-filter: blur(10px); /* Smooth blur effect */
 }
 
 /* Hover Effect */
 button:hover {
-    background: linear-gradient(135deg, #2575fc, #6a11cb);
+    background: rgba(255, 255, 255, 0.3); /* Slightly brighter on hover */
     transform: scale(1.05);
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.5);
+}
+
+/* Active (Click) Effect */
+button:active {
+    transform: scale(0.98);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 /* Iframe Container */
