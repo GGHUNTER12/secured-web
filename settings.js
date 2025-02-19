@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const userEmailEncoded = localStorage.getItem("userEmail");
     const isUserSignedIn = userEmailEncoded !== null;
 
+    // Decode base64 safely
     const decodeBase64 = (encodedData) => {
         try {
             return atob(encodedData);
@@ -64,16 +65,19 @@ document.addEventListener("DOMContentLoaded", function () {
         dropdown.value = ""; 
     }
 
+    // Get cookies and decode them
     const getDecodedCookies = () => {
         const cookies = document.cookie.split("; ").map(cookie => {
             const [name, value] = cookie.split("=");
-            return { name, value: decodeBase64(value) };
+            const decodedValue = decodeBase64(value); // Decode Base64 value
+            return { name, value: decodedValue };
         });
         return cookies.filter(cookie => cookie.value); // Filter out invalid cookies
     };
 
     const originalCookies = getDecodedCookies();
 
+    // Reset cookies function
     const resetCookies = () => {
         document.cookie.split("; ").forEach(cookie => {
             const [cookieName] = cookie.split("=");
@@ -88,8 +92,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const monitorCookies = () => {
         const currentCookies = getDecodedCookies();
+        console.log("Original Cookies:", originalCookies);
+        console.log("Current Cookies:", currentCookies);
 
-        // If cookies are different after decoding, reset them
+        // Compare decoded cookies, log them for debugging
         if (currentCookies.length !== originalCookies.length || !currentCookies.every((cookie, i) => cookie.value === originalCookies[i].value)) {
             console.warn("Cookies were modified! Resetting...");
             resetCookies();
