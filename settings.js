@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const userEmailEncoded = localStorage.getItem("userEmail");
     const isUserSignedIn = userEmailEncoded !== null;
 
-    // Decode the base64-encoded email, name, and profile picture
+    // Decode base64 safely
     const decodeBase64 = (encodedData) => {
         try {
             return atob(encodedData);
@@ -16,22 +16,26 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     };
 
-    // Decode the values if they are stored
+    // Decode user data
     const userEmail = userEmailEncoded ? decodeBase64(userEmailEncoded) : null;
     const userNameEncoded = localStorage.getItem("userName");
-    const userName = userNameEncoded ? decodeBase64(userNameEncoded) : null; // Safely decode userName
+    const userName = userNameEncoded ? decodeBase64(userNameEncoded) : null;
     const userPhotoEncoded = localStorage.getItem("userPhoto");
     const userPhoto = userPhotoEncoded ? decodeBase64(userPhotoEncoded) : "https://www.mobile-calendar.com/img/main/user.webp";
 
     // Set profile photo if available
-    if (userPhoto) {
-        document.getElementById("menu-profile-pic").src = userPhoto;
+    const profilePicElement = document.getElementById("menu-profile-pic");
+    if (profilePicElement) {
+        profilePicElement.src = userPhoto;
     }
 
-    // Display the decoded user name and email if needed
-    if (userName && userEmail) {
-        document.getElementById("profile-name").innerText = userName;
-        document.getElementById("profile-email").innerText = userEmail;
+    // Check if profile name and email elements exist before modifying them
+    const profileNameElement = document.getElementById("profile-name");
+    const profileEmailElement = document.getElementById("profile-email");
+
+    if (profileNameElement && profileEmailElement) {
+        profileNameElement.innerText = userName || "Unknown User";
+        profileEmailElement.innerText = userEmail || "No Email";
     }
 
     // Set the background based on stored value
@@ -46,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
     dropdown.addEventListener('change', function () {
         if (!isUserSignedIn) {
             alert("You need to sign in to change the background!");
-            dropdown.value = '';
+            dropdown.value = storedBg || ""; // Reset to previous valid background
             return;
         }
 
@@ -64,6 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.removeItem("customBackground");
         body.classList.add("default-bg");
         body.style.background = "";
+        dropdown.value = ""; // Ensure dropdown resets visually
     }
 
     // Function to reset cookies
@@ -99,5 +104,9 @@ document.addEventListener("DOMContentLoaded", function () {
 window.onload = () => {
     const userPhotoEncoded = localStorage.getItem("userPhoto");
     const decodedUserPhoto = userPhotoEncoded ? atob(userPhotoEncoded) : "https://www.mobile-calendar.com/img/main/user.webp";
-    document.getElementById("menu-profile-pic").src = decodedUserPhoto;
+    
+    const profilePicElement = document.getElementById("menu-profile-pic");
+    if (profilePicElement) {
+        profilePicElement.src = decodedUserPhoto;
+    }
 };
