@@ -1,3 +1,5 @@
+import { Analytics } from "@vercel/analytics/react";
+
 // analytics.js
 (function() {
   var script = document.createElement('script');
@@ -12,3 +14,6 @@
     gtag('config', 'G-Z5FC4ZV3MX');
   };
 })();
+
+// Render Vercel Analytics
+Analytics();
