@@ -11,9 +11,4 @@
     gtag('js', new Date());
     gtag('config', 'G-Z5FC4ZV3MX');
   };
-
-  // Dynamically import Vercel Analytics
-  import("@vercel/analytics").then(({ Analytics }) => {
-    Analytics();
-  }).catch(console.error);
 })();
