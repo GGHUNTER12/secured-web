@@ -1,24 +1,23 @@
 .top-menu {
     position: fixed;
-    top: 20px; /* Keeps it floating */
+    top: 15px; /* Lift it slightly off the top */
     left: 50%;
-    transform: translateX(-50%);
-    width: 95%; /* Made the menu even wider */
-    max-width: 1400px; /* Prevents it from stretching too much on ultra-wide screens */
+    transform: translateX(-50%); /* Center it */
+    width: 90%; /* Slightly smaller for a floating look */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 40px; /* Increased padding for a bigger feel */
-    background: rgba(0, 0, 0, 0.6); /* Slightly darker for contrast */
-    backdrop-filter: blur(20px); /* Strong blur for a glass effect */
-    border-radius: 35px; /* More curvature for a smoother look */
-    box-shadow: 0px 6px 30px rgba(0, 0, 0, 0.5); /* Stronger shadow for depth */
+    padding: 15px 30px;
+    background: rgba(0, 0, 0, 0.4); /* More transparency */
+    backdrop-filter: blur(20px); /* Stronger blur */
+    border-radius: 25px; /* Make it more curved */
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.3); /* Deeper shadow for floating effect */
     z-index: 1000;
 }
 
 .logo a {
-    font-size: 1.8em; /* Bigger text for visibility */
-    font-weight: 700;
+    font-size: 1.5em;
+    font-weight: 600;
     text-decoration: none;
     color: white;
     transition: 0.3s;
@@ -36,21 +35,20 @@ nav ul {
 }
 
 nav ul li {
-    margin: 0 22px; /* Slightly more spacing for balance */
+    margin: 0 15px;
 }
 
 .menu-button {
     text-decoration: none;
     color: white;
-    font-weight: 700;
+    font-weight: 600;
     background: rgba(255, 255, 255, 0.2);
-    padding: 12px 25px; /* Keeping OG button size */
-    border-radius: 15px;
-    font-size: 1em;
+    padding: 10px 20px;
+    border-radius: 12px;
     transition: 0.3s;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 5px;
 }
 
 .menu-button:hover {
