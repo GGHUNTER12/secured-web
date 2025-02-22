@@ -1,17 +1,17 @@
 .top-menu {
     position: fixed;
-    top: 20px; /* Slightly lower to make it float */
+    top: 20px; /* Keeps it floating */
     left: 50%;
     transform: translateX(-50%);
-    width: 60%; /* Reduce width for a sleeker appearance */
-    max-width: 800px; /* Limit max width for better responsiveness */
+    width: 80%; /* Increased width for a longer menu */
+    max-width: 1100px; /* Ensures it doesn’t stretch too much */
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 12px 25px;
     background: rgba(0, 0, 0, 0.6); /* Slightly darker for contrast */
-    backdrop-filter: blur(20px); /* Stronger blur for a glass effect */
-    border-radius: 25px; /* More rounded for a floating look */
+    backdrop-filter: blur(20px); /* Strong blur for a glass effect */
+    border-radius: 25px; /* Keeps the curved edges */
     box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.4); /* More depth */
     z-index: 1000;
 }
@@ -36,7 +36,7 @@ nav ul {
 }
 
 nav ul li {
-    margin: 0 12px;
+    margin: 0 15px;
 }
 
 .menu-button {
