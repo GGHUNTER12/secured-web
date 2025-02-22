@@ -1,5 +1,15 @@
 document.addEventListener("DOMContentLoaded", function () {
+    const loadingScreen = document.getElementById("loading-screen");
+    
+    // Check if a custom background is stored in localStorage
+    const customBg = localStorage.getItem("customBackground");
+    
+    if (customBg) {
+        loadingScreen.style.background = customBg;
+    }
+
+    // Hide the loading screen after 1 second
     setTimeout(() => {
-        document.getElementById("loading-screen").classList.add("hidden");
-    }, 1000); // Wait 1 second before hiding the loader
+        loadingScreen.classList.add("hidden");
+    }, 1000);
 });
