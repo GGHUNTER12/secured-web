@@ -347,3 +347,37 @@ iframe {
     object-fit: cover;
     border: 3px solid white;
 }
+
+/* Loading Screen Styles */
+#loading-screen {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: #0a0a0a; /* Dark background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+}
+
+.loader {
+    width: 80px;
+    height: 80px;
+    border: 8px solid rgba(255, 255, 255, 0.2);
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Spinning Animation */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Hide loader when page loads */
+.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
