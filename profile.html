@@ -98,7 +98,7 @@
         window.signIn = signIn;
         window.signOutUser = signOutUser;
 
-        // Export data function (encoding Base64 before export)
+        // Expose exportData and importData functions globally so the buttons can access them
         function exportData() {
             const data = JSON.stringify(localStorage);  // Convert localStorage to JSON string
             const encodedData = btoa(data);  // Encode data in Base64
@@ -132,14 +132,36 @@
         window.exportData = exportData;
         window.importData = importData;
 
+        // Handle profile picture change
+        document.getElementById("change-pic-icon").addEventListener("click", function() {
+            let input = document.createElement("input");
+            input.type = "file";
+            input.accept = "image/*";
+            
+            input.addEventListener("change", function(event) {
+                let file = event.target.files[0];
+                if (file) {
+                    let reader = new FileReader();
+                    reader.onload = function(e) {
+                        let newPhotoURL = e.target.result;
+                        document.getElementById("profile-pic").src = newPhotoURL;
+                        localStorage.setItem("userPhoto", btoa(newPhotoURL));  // Save the base64 image to localStorage
+                        location.reload();  // Refresh the page to apply the new photo
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            input.click();  // Trigger file input dialog
+        });
     </script>
 </head>
 <body>
     <!-- Loading Screen -->
-<div id="loading-screen">
-    <div class="loader"></div>
-</div>
-    
+    <div id="loading-screen">
+        <div class="loader"></div>
+    </div>
+
     <div id="particles-js"></div>
 
     <!-- Top Floating Menu -->
@@ -153,12 +175,12 @@
                 <li><a href="/games.html" class="menu-button">🎮 Games</a></li>
                 <li><a href="/partners.html" class="menu-button">🤝 Partners</a></li>
                 <li><a href="/settings.html" class="menu-button">⚙️ Settings</a></li>
-               <!-- Profile Button with Profile Picture in Menu -->
+                <!-- Profile Button with Profile Picture in Menu -->
                 <li>
-                <a href="/profile.html" class="profile-button">
-                <img id="menu-profile-pic" src="https://www.mobile-calendar.com/img/main/user.webp" alt="Profile">
-                </a>
-              </li>
+                    <a href="/profile.html" class="profile-button">
+                        <img id="menu-profile-pic" src="https://www.mobile-calendar.com/img/main/user.webp" alt="Profile">
+                    </a>
+                </li>
             </ul>
         </nav>
     </header>
@@ -166,13 +188,16 @@
     <div class="center-box">
         <h1 class="title">Profile</h1>
         <p>Sign in to access your account.</p>
-        
+
         <!-- Firebase Sign-In Button -->
         <button id="button" onclick="signIn()">Sign in with Google</button>
-        
+
         <!-- Profile Info -->
         <div id="profile" style="display:none;">
-            <img id="profile-pic" src="" alt="Profile Picture">
+            <div id="profile-pic-container" style="position: relative; display: inline-block;">
+                <img id="profile-pic" src="" alt="Profile Picture" style="width: 100px; height: 100px; border-radius: 50%;">
+                <img id="change-pic-icon" src="https://th.bing.com/th/id/OIP.JIo_erHjGUXp0-Z86gJAqAHaHa?rs=1&pid=ImgDetMain" alt="Change Profile Picture" style="width: 32px; height: 32px; position: absolute; bottom: 0; right: 0; cursor: pointer; border-radius: 50%; border: 2px solid white;">
+            </div>
             <h2 id="profile-name"></h2>
             <p id="profile-email"></p>
             <button onclick="signOutUser()">Sign Out</button>
