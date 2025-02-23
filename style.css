@@ -382,3 +382,42 @@ iframe {
     visibility: hidden;
 }
 
+/* Dropdown Styling */
+#favicon-dropdown {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    outline: none;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+/* Dropdown Hover Effect */
+#favicon-dropdown:hover {
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.3);
+}
+
+/* Dropdown Focus Effect */
+#favicon-dropdown:focus {
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+/* Option Styling */
+#favicon-dropdown option {
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+}
+
+/* Option Hover Effect */
+#favicon-dropdown option:hover {
+    background: rgba(0, 0, 0, 0.6);
+}
+
+
