@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secured V2 Status</title>
+    <link rel="icon" type="image/x-icon" href="images/secured-favicon.png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600&display=swap">
+    <link rel="stylesheet" href="/secured-web/style.css">
+    <link rel="stylesheet" href="/secured-web/menu.css">
+    <style>
+        body {
+            font-family: 'Lexend', sans-serif;
+            background: #0d1117;
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .status-container {
+            max-width: 600px;
+            margin: 80px auto;
+            padding: 20px;
+            background: #161b22;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+        }
+
+        .status-indicator {
+            font-size: 24px;
+            margin: 10px 0;
+        }
+
+        .status-dot {
+            height: 15px;
+            width: 15px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+
+        .operational { background: #2ecc71; }
+        .partial { background: #f1c40f; }
+        .major { background: #e74c3c; }
+
+        .uptime-history {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .uptime-bar {
+            width: 12%;
+            height: 25px;
+            border-radius: 5px;
+            background: #2ecc71;
+        }
+
+        .incident-log {
+            margin-top: 20px;
+            background: #22272e;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .incident {
+            color: #f1c40f;
+        }
+
+        .resolved {
+            color: #2ecc71;
+        }
+    </style>
+</head>
+<body>
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+
+    <!-- Top Floating Menu (Does Not Refresh) -->
+    <header class="top-menu">
+        <div class="logo">
+            <a href="/index.html">SECURED WEB</a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/index.html" class="menu-button">🏠 Home</a></li>
+                <li><a href="/games.html" class="menu-button">🎮 Games</a></li>
+                <li><a href="/partners.html" class="menu-button">🤝 Partners</a></li>
+                <li><a href="/settings.html" class="menu-button">⚙️ Settings</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Status Page Content -->
+    <div class="center-box">
+        <h1>Secured V2 Status</h1>
+        <p>Last updated: <span id="last-updated">Just now</span></p>
+
+        <div class="status-indicator">
+            <span id="status-dot" class="status-dot operational"></span>
+            <span id="status-text">All Systems Operational</span>
+        </div>
+
+        <h3>Uptime (Last 7 Days)</h3>
+        <div class="uptime-history">
+            <div class="uptime-bar" id="day-1"></div>
+            <div class="uptime-bar" id="day-2"></div>
+            <div class="uptime-bar" id="day-3"></div>
+            <div class="uptime-bar" id="day-4"></div>
+            <div class="uptime-bar" id="day-5"></div>
+            <div class="uptime-bar" id="day-6"></div>
+            <div class="uptime-bar" id="day-7"></div>
+        </div>
+
+        <h3>Incident History</h3>
+        <div class="incident-log" id="incident-log">
+            <p>No incidents reported in the last 7 days.</p>
+        </div>
+    </div>
+
+    <script>
+        async function fetchStatus() {
+            try {
+                // Simulated API Call (Replace with actual API endpoint)
+                const response = await fetch("https://securedweb.xyz/status.json"); 
+                const data = await response.json();
+
+                // Update status
+                const statusText = document.getElementById("status-text");
+                const statusDot = document.getElementById("status-dot");
+                if (data.status === "operational") {
+                    statusText.textContent = "All Systems Operational";
+                    statusDot.className = "status-dot operational";
+                } else if (data.status === "partial") {
+                    statusText.textContent = "Partial Outage Detected";
+                    statusDot.className = "status-dot partial";
+                } else {
+                    statusText.textContent = "Major Outage - Investigating";
+                    statusDot.className = "status-dot major";
+                }
+
+                // Update last updated time
+                document.getElementById("last-updated").textContent = new Date().toLocaleTimeString();
+
+                // Update uptime history
+                const uptimeBars = document.querySelectorAll(".uptime-bar");
+                data.uptime.forEach((percent, index) => {
+                    uptimeBars[index].style.background = percent < 100 ? "#f1c40f" : "#2ecc71";
+                    uptimeBars[index].style.opacity = percent < 100 ? "0.6" : "1";
+                });
+
+                // Update incident log
+                const incidentLog = document.getElementById("incident-log");
+                incidentLog.innerHTML = data.incidents.length
+                    ? data.incidents.map(
+                        incident => `<p class="${incident.status === "resolved" ? "resolved" : "incident"}">
+                            ${incident.date} - ${incident.issue} (${incident.status})
+                        </p>`
+                    ).join("")
+                    : "<p>No incidents reported in the last 7 days.</p>";
+
+            } catch (error) {
+                console.error("Failed to fetch status:", error);
+            }
+        }
+
+        // Auto-refresh status every 30s without reloading the page
+        setInterval(fetchStatus, 30000);
+
+        // Initial load
+        fetchStatus();
+    </script>
+
+    <!-- Particles Effect & Other Scripts -->
+    <script src="/secured-web/particles.js"></script>
+    <script src="/secured-web/app.js"></script>
+    <script src="/secured-web/settings.js"></script>
+    <script src="analytics.js"></script>
+    <script src="/secured-web/loading.js"></script>
+
+    <!-- Crate Widget for Discord -->
+    <script src="https://cdn.jsdelivr.net/npm/@widgetbot/crate@3" async defer> 
+        new Crate({
+            server: '1045821677583474808',
+            channel: '1046287752032956537',
+        });
+    </script>
+</body>
+</html>
