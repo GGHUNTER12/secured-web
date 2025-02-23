@@ -1,6 +1,6 @@
 {
   "status": "operational",
-  "uptime": [100, 98, 97, 100, 95, 90, 100],
+  "uptime": [56, 78, 97, 100, 100, 91, 90],
   "incidents": [
     { "date": "2025-02-22", "issue": "Maintenance", "status": "on going" }
   ]
