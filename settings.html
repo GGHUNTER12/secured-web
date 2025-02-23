@@ -3,164 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secured V2 - Profile</title>
+    <title>Secured V2 - Settings</title>
     <link rel="icon" type="image/x-icon" href="images/secured-favicon.png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600&display=swap">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="menu.css">
-    <script type="module">
-        // Import Firebase SDK
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
-        import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
-
-        // Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyBV7JbLkjDnc0pkbawwjdAg5bLRBOgnV4E",
-            authDomain: "d-web-9b2ea.firebaseapp.com",
-            projectId: "d-web-9b2ea",
-            storageBucket: "d-web-9b2ea.firebasestorage.app",
-            messagingSenderId: "709249421953",
-            appId: "1:709249421953:web:ccc763acf13d28716f3380",
-            measurementId: "G-D7PBM8E1PV"
-        };
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const provider = new GoogleAuthProvider();
-
-        function signIn() {
-            signInWithPopup(auth, provider)
-                .then((result) => {
-                    const user = result.user;
-                    updateProfileUI(user);
-                    // Save user data in Base64 encoded localStorage
-                    localStorage.setItem("userPhoto", btoa(user.photoURL));  // Encoding in Base64
-                    localStorage.setItem("userName", btoa(user.displayName));
-                    localStorage.setItem("userEmail", btoa(user.email));
-                })
-                .catch((error) => {
-                    console.error("Sign-in error", error);
-                });
+    <style>
+        /* Make box bigger too small */
+        .center-box {
+            width: 50%;
+            margin: 50px auto;
+            padding: 20px;
+            text-align: center;
         }
 
-        function signOutUser() {
-            signOut(auth).then(() => {
-                document.getElementById("profile").style.display = "none";
-                updateProfileUI(null);
-                // Remove user data from localStorage
-                localStorage.removeItem("userPhoto");
-                localStorage.removeItem("userName");
-                localStorage.removeItem("userEmail");
-            }).catch((error) => {
-                console.error("Sign-out error", error);
-            });
+        iframe {
+            width: 100%;
+            height: 500px;
+            border: none;
+            display: none;
+        }
+        
+        .styles-header {
+            font-size: 2.5em; /* Increase the size */
+            margin: 20px 0 25px; /* Add more space above and below */
+            letter-spacing: 2px; /* Space out the text */
         }
 
-        function updateProfileUI(user) {
-            const profileSection = document.getElementById("profile");
-            const profilePic = document.getElementById("profile-pic");
-            const profileName = document.getElementById("profile-name");
-            const profileEmail = document.getElementById("profile-email");
-            const menuProfilePic = document.getElementById("menu-profile-pic");
-            const signInButton = document.getElementById("button");
-
-            if (user) {
-                profilePic.src = user.photoURL;
-                profileName.innerText = user.displayName;
-                profileEmail.innerText = user.email;
-                profileSection.style.display = "block";
-                menuProfilePic.src = user.photoURL;
-                signInButton.style.display = "none";
-            } else {
-                profilePic.src = "https://www.mobile-calendar.com/img/main/user.webp"; // Default avatar
-                profileSection.style.display = "none";
-                menuProfilePic.src = "https://www.mobile-calendar.com/img/main/user.webp"; // Default avatar
-                signInButton.style.display = "block";
-            }
-        }
-
-        // Check if the user is logged in from localStorage (decoding Base64)
-        window.onload = () => {
-            const userPhoto = localStorage.getItem("userPhoto");
-            const userName = localStorage.getItem("userName");
-            const userEmail = localStorage.getItem("userEmail");
-            
-            if (userPhoto && userName && userEmail) {
-                updateProfileUI({
-                    photoURL: atob(userPhoto),  // Decoding from Base64
-                    displayName: atob(userName),
-                    email: atob(userEmail)
-                });
-            }
-        };
-
-        window.signIn = signIn;
-        window.signOutUser = signOutUser;
-
-        // Expose exportData and importData functions globally so the buttons can access them
-        function exportData() {
-            const data = JSON.stringify(localStorage);  // Convert localStorage to JSON string
-            const encodedData = btoa(data);  // Encode data in Base64
-            const blob = new Blob([encodedData], { type: 'application/json' });
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = 'securedweb.save';  // Set the export file name
-            link.click();
-        }
-
-        // Import data function (decoding Base64 after import)
-        function importData(event) {
-            const file = event.target.files[0];  // Get the selected file
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const decodedData = atob(e.target.result);  // Decode Base64 data
-                    const importedData = JSON.parse(decodedData);  // Parse the decoded data
-                    for (const key in importedData) {
-                        if (importedData.hasOwnProperty(key)) {
-                            localStorage.setItem(key, importedData[key]);  // Restore data to localStorage
-                        }
-                    }
-                    location.reload();  // Reload the page to apply the imported data
-                };
-                reader.readAsText(file);  // Read the file as text
-            }
-        }
-
-        // Expose exportData and importData functions globally so the buttons can access them
-        window.exportData = exportData;
-        window.importData = importData;
-
-        // Handle profile picture change
-        document.getElementById("change-pic-icon").addEventListener("click", function() {
-            let input = document.createElement("input");
-            input.type = "file";
-            input.accept = "image/*";
-            
-            input.addEventListener("change", function(event) {
-                let file = event.target.files[0];
-                if (file) {
-                    let reader = new FileReader();
-                    reader.onload = function(e) {
-                        let newPhotoURL = e.target.result;
-                        document.getElementById("profile-pic").src = newPhotoURL;
-                        localStorage.setItem("userPhoto", btoa(newPhotoURL));  // Save the base64 image to localStorage
-                        location.reload();  // Refresh the page to apply the new photo
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
-            
-            input.click();  // Trigger file input dialog
-        });
-    </script>
+    </style>
 </head>
 <body>
     <!-- Loading Screen -->
-    <div id="loading-screen">
-        <div class="loader"></div>
-    </div>
+<div id="loading-screen">
+    <div class="loader"></div>
+</div>
 
     <div id="particles-js"></div>
 
@@ -175,47 +51,64 @@
                 <li><a href="/games.html" class="menu-button">🎮 Games</a></li>
                 <li><a href="/partners.html" class="menu-button">🤝 Partners</a></li>
                 <li><a href="/settings.html" class="menu-button">⚙️ Settings</a></li>
-                <!-- Profile Button with Profile Picture in Menu -->
+               <!-- Profile Button with Profile Picture in Menu -->
                 <li>
-                    <a href="/profile.html" class="profile-button">
-                        <img id="menu-profile-pic" src="https://www.mobile-calendar.com/img/main/user.webp" alt="Profile">
-                    </a>
-                </li>
+                <a href="/profile.html" class="profile-button">
+                <img id="menu-profile-pic" src="https://www.mobile-calendar.com/img/main/user.webp" alt="Profile">
+                </a>
+              </li>
             </ul>
         </nav>
     </header>
 
     <div class="center-box">
-        <h1 class="title">Profile</h1>
-        <p>Sign in to access your account.</p>
+        <h1 class="title">Settings</h1>
+        <p>This is a setting page, I know</p>
 
-        <!-- Firebase Sign-In Button -->
-        <button id="button" onclick="signIn()">Sign in with Google</button>
+        <!-- Button to open about:blank iframe -->
+        <button onclick="openAboutBlank()">Open Page in About:Blank</button>
 
-        <!-- Profile Info -->
-        <div id="profile" style="display:none;">
-            <div id="profile-pic-container" style="position: relative; display: inline-block;">
-                <img id="profile-pic" src="" alt="Profile Picture" style="width: 100px; height: 100px; border-radius: 50%;">
-                <img id="change-pic-icon" src="https://th.bing.com/th/id/OIP.JIo_erHjGUXp0-Z86gJAqAHaHa?rs=1&pid=ImgDetMain" alt="Change Profile Picture" style="width: 32px; height: 32px; position: absolute; bottom: 0; right: 0; cursor: pointer; border-radius: 50%; border: 2px solid white;">
-            </div>
-            <h2 id="profile-name"></h2>
-            <p id="profile-email"></p>
-            <button onclick="signOutUser()">Sign Out</button>
+        <!-- Styles Section -->
+        <h2 class="styles-header">Styles</h2>
+        <div class="styles-section">
+            <select id="style-dropdown" onchange="setBackgroundFromDropdown()">
+                <option value="">Default</option>
+                <option value="linear-gradient(135deg, #ff7eb3, #ff758c)">Pink Gradient</option>
+                <option value="linear-gradient(135deg, #42e695, #3bb2b8)">Green Gradient</option>
+                <option value="linear-gradient(135deg, #89CFF0, #A3D8F4)">Baby Blue Gradient</option>
+                <option value="linear-gradient(135deg, #ADFF2F, #7CFC00)">Bright Lime Green Gradient</option>
+                <option value="linear-gradient(135deg, #C71585, #FF1493)">Red Violet Gradient</option>
+                <option value="linear-gradient(135deg, #ff9966, #ff5e62)">Orange Gradient</option>
+                <option value="linear-gradient(135deg, #ffeb3b, #f44336)">Sunset Gradient</option>
+                <option value="linear-gradient(135deg, #000000, #434343)">Black Gradient</option>
+            </select>
         </div>
 
-        <!-- Import/Export Buttons -->
-        <div>
-            <button onclick="exportData()">Export Data</button>
-            <input type="file" id="importFile" onchange="importData(event)" style="display:none;" />
-            <button onclick="document.getElementById('importFile').click()">Import Data</button>
-        </div>
+        <!-- Button to toggle particles -->
+        <button class="toggle-button" onclick="toggleParticles()">Toggle Particles</button>
+
+        <!-- Iframe that will load page -->
+        <iframe id="about-blank-frame"></iframe>
     </div>
 
-    <script src="particles.js"></script>
-    <script src="app.js"></script>
-    <script src="settings.js"></script>
-    <script src="analytics.js"></script>
-    <script src="loading.js"></script>
+    <script>
+        function openAboutBlank() {
+            var newWindow = window.open('about:blank', '_blank');
+            var iframe = newWindow.document.createElement('iframe');
+            iframe.style.width = "100%";
+            iframe.style.height = "100%";
+            iframe.style.border = "none";
+            iframe.src = "/index.html"; // Load the URL inside the iframe
+            newWindow.document.body.appendChild(iframe);
+        }
+
+        function toggleParticles() {
+            // Toggle particles on and off
+            const particlesEnabled = localStorage.getItem('particlesEnabled') === 'true';
+            localStorage.setItem('particlesEnabled', !particlesEnabled);
+            location.reload();  // Reload to apply changes
+        }
+    </script>
 
     <!-- Crate Widget for Discord -->
     <script src="https://cdn.jsdelivr.net/npm/@widgetbot/crate@3" async defer> 
@@ -224,5 +117,11 @@
             channel: '1046287752032956537',
         });
     </script>
+
+    <script src="particles.js"></script>
+    <script src="app.js"></script>
+    <script src="settings.js"></script>
+    <script src="analytics.js"></script>
+    <script src="loading.js"></script>
 </body>
 </html>
