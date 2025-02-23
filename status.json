@@ -2,6 +2,6 @@
   "status": "operational",
   "uptime": [100, 98, 97, 100, 95, 90, 100],
   "incidents": [
-    { "date": "2025-02-22", "issue": "DDoS Attack", "status": "resolved" }
+    { "date": "2025-02-22", "issue": "Maintenance", "status": "on going" }
   ]
 }
