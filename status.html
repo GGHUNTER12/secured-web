@@ -6,8 +6,8 @@
     <title>Secured V2 Status</title>
     <link rel="icon" type="image/x-icon" href="images/secured-favicon.png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600&display=swap">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="menu.css">
+    <link rel="stylesheet" href="/secured-web/style.css">
+    <link rel="stylesheet" href="/secured-web/menu.css">
     <style>
         body {
             font-family: 'Lexend', sans-serif;
@@ -74,11 +74,11 @@
     </style>
 </head>
 <body>
-        <!-- Loading Screen -->
-<div id="loading-screen">
-    <div class="loader"></div>
-</div>
-    
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loader"></div>
+    </div>
+
     <!-- Particles Background -->
     <div id="particles-js"></div>
 
@@ -93,6 +93,11 @@
                 <li><a href="/games.html" class="menu-button">🎮 Games</a></li>
                 <li><a href="/partners.html" class="menu-button">🤝 Partners</a></li>
                 <li><a href="/settings.html" class="menu-button">⚙️ Settings</a></li>
+                <li>
+                    <a href="/profile.html" class="profile-button">
+                        <img id="menu-profile-pic" src="https://www.mobile-calendar.com/img/main/user.webp" alt="Profile">
+                    </a>
+                </li>
             </ul>
         </nav>
     </header>
@@ -100,7 +105,7 @@
     <!-- Status Page Content -->
     <div class="center-box">
         <h1>Secured V2 Status</h1>
-        <p>Last updated: <span id="last-updated">Just now</span></p>
+        <p id="website-display">Current Website: </p>
 
         <div class="status-indicator">
             <span id="status-dot" class="status-dot operational"></span>
@@ -125,13 +130,14 @@
     </div>
 
     <script>
+
+        document.getElementById("website-display").textContent = "" + window.location.origin;
+
         async function fetchStatus() {
             try {
-                
                 const response = await fetch("/status.json"); 
                 const data = await response.json();
 
-                // Update status
                 const statusText = document.getElementById("status-text");
                 const statusDot = document.getElementById("status-dot");
                 if (data.status === "operational") {
@@ -145,24 +151,18 @@
                     statusDot.className = "status-dot major";
                 }
 
-                // Update last updated time
-                document.getElementById("last-updated").textContent = new Date().toLocaleTimeString();
-
-                // Update uptime history
                 const uptimeBars = document.querySelectorAll(".uptime-bar");
                 data.uptime.forEach((percent, index) => {
                     uptimeBars[index].style.background = percent < 100 ? "#f1c40f" : "#2ecc71";
                     uptimeBars[index].style.opacity = percent < 100 ? "0.6" : "1";
                 });
 
-                // Update incident log
                 const incidentLog = document.getElementById("incident-log");
                 incidentLog.innerHTML = data.incidents.length
                     ? data.incidents.map(
                         incident => `<p class="${incident.status === "resolved" ? "resolved" : "incident"}">
                             ${incident.date} - ${incident.issue} (${incident.status})
-                        </p>`
-                    ).join("")
+                        </p>`).join("")
                     : "<p>No incidents reported in the last 7 days.</p>";
 
             } catch (error) {
@@ -170,19 +170,17 @@
             }
         }
 
-        // Auto-refresh status every 30s without reloading the page
         setInterval(fetchStatus, 30000);
 
-        // Initial load
         fetchStatus();
     </script>
 
     <!-- Particles Effect & Other Scripts -->
-    <script src="particles.js"></script>
-    <script src="app.js"></script>
-    <script src="settings.js"></script>
+    <script src="/secured-web/particles.js"></script>
+    <script src="/secured-web/app.js"></script>
+    <script src="/secured-web/settings.js"></script>
     <script src="analytics.js"></script>
-    <script src="loading.js"></script>
+    <script src="/secured-web/loading.js"></script>
 
     <!-- Crate Widget for Discord -->
     <script src="https://cdn.jsdelivr.net/npm/@widgetbot/crate@3" async defer> 
