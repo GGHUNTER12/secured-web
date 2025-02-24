@@ -74,63 +74,6 @@ document.addEventListener("DOMContentLoaded", function () {
         body.style.background = "";
         if (dropdown) dropdown.value = "";
     }
-
-    // Favicon and Title Handling (Persistent across pages)
-    const savedFavicon = localStorage.getItem('favicon') || '';
-    const savedTitle = localStorage.getItem('pageTitle') || '';
-
-    if (savedFavicon && document.getElementById('favicon')) {
-        document.getElementById('favicon').href = savedFavicon;
-    } else {
-        // Ensure that no favicon is set if none is saved
-        const favicon = document.createElement("link");
-        favicon.rel = "icon";
-        favicon.id = "favicon";
-        document.head.appendChild(favicon);
-        favicon.href = '';  // No favicon by default
-    }
-
-    if (savedTitle) {
-        document.title = savedTitle;
-    } else {
-        document.title = '';  // Default no title
-    }
-
-    // Favicon Dropdown Handling (for selecting new favicon and title)
-    const faviconDropdown = document.getElementById('favicon-dropdown');
-
-    // Set the default selected values in the dropdown based on saved settings
-    if (savedFavicon === 'images/googlefavicon.ico') {
-        faviconDropdown.value = 'images/googlefavicon.ico|Google - Secured V2';
-    } else if (savedFavicon === 'images/secured-favicon.png') {
-        faviconDropdown.value = 'images/secured-favicon.png|Secured V2 - Settings';
-    } else {
-        faviconDropdown.value = ''; // Default empty value
-    }
-
-    // Change Favicon and Title from Dropdown
-    faviconDropdown.addEventListener('change', function () {
-        const selectedOption = faviconDropdown.value;
-        if (selectedOption) {
-            const [favicon, title] = selectedOption.split('|');
-            const faviconLink = document.getElementById("favicon");
-            faviconLink.href = favicon;
-            document.title = title;
-
-            // Save to localStorage
-            localStorage.setItem('favicon', favicon);
-            localStorage.setItem('pageTitle', title);
-        } else {
-            // No favicon or title selected
-            const faviconLink = document.getElementById("favicon");
-            faviconLink.href = '';  // No favicon
-            document.title = '';  // Empty title
-
-            // Remove saved favicon and title from localStorage
-            localStorage.removeItem('favicon');
-            localStorage.removeItem('pageTitle');
-        }
-    });
 });
 
 window.onload = () => {
