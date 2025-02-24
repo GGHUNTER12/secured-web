@@ -2,8 +2,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const announcementBox = document.getElementById("announcement");
     const closeButton = document.getElementById("announcement-close");
 
-    // Set the announcement text (Change this when there's a new announcement)
-    const announcementText = "1";
+    // Set the announcement text (Change this whenever there's a new announcement)
+    const announcementText = "🚀 New update! Check out the latest changes.";
 
     // Check localStorage for the last seen announcement
     const storedAnnouncement = localStorage.getItem("lastAnnouncement");
@@ -23,20 +23,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Close button event
     closeButton.addEventListener("click", function () {
-        closeAnnouncement(); // Call function to close with animation
+        closeAnnouncement(); // Call function to close
     });
 });
 
-// Function to close announcement with a fade-out effect
+// Function to close announcement and store state
 function closeAnnouncement() {
-    const announcementBox = document.getElementById('announcement');
-    
-    // Add fade-out class
-    announcementBox.classList.add("announcement-hide");
-
-    // Wait for animation, then hide completely
-    setTimeout(() => {
-        announcementBox.style.display = "none";
-        localStorage.setItem("announcementClosed", "true");
-    }, 500); // Matches the CSS transition time
+    document.getElementById('announcement').style.display = 'none';
+    localStorage.setItem("announcementClosed", "true");
 }
