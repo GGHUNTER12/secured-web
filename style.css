@@ -416,12 +416,6 @@ iframe {
     transition: color 0.2s ease;
 }
 
-.announcement-hide {
-    opacity: 0;
-    transform: translateX(-50%) translateY(-10px);
-    pointer-events: none;
-}
-
 .announcement-close:hover {
     color: purple;
 }
