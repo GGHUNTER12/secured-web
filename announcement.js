@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const closeButton = document.getElementById("announcement-close");
 
     // Set the announcement text (Change this when there's a new announcement)
-    const announcementText = "test";
+    const announcementText = "1";
 
     // Check localStorage for the last seen announcement
     const storedAnnouncement = localStorage.getItem("lastAnnouncement");
