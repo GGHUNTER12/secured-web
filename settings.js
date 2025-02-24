@@ -75,14 +75,19 @@ document.addEventListener("DOMContentLoaded", function () {
         if (dropdown) dropdown.value = "";
     }
 
-    // Favicon and Title Handling
+    // Favicon and Title Handling (Persistent across pages)
     const savedFavicon = localStorage.getItem('favicon') || '';
     const savedTitle = localStorage.getItem('pageTitle') || '';
 
-    if (savedFavicon) {
+    if (savedFavicon && document.getElementById('favicon')) {
         document.getElementById('favicon').href = savedFavicon;
     } else {
-        document.getElementById('favicon').href = '';  // Default no favicon
+        // Ensure that no favicon is set if none is saved
+        const favicon = document.createElement("link");
+        favicon.rel = "icon";
+        favicon.id = "favicon";
+        document.head.appendChild(favicon);
+        favicon.href = '';  // No favicon by default
     }
 
     if (savedTitle) {
@@ -91,7 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.title = '';  // Default no title
     }
 
-    // Favicon Dropdown Handling
+    // Favicon Dropdown Handling (for selecting new favicon and title)
     const faviconDropdown = document.getElementById('favicon-dropdown');
 
     // Set the default selected values in the dropdown based on saved settings
