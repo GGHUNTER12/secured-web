@@ -383,7 +383,7 @@ iframe {
 }
 }
 
-/* Floating announcement box */
+/* announcement box */
 .center-box#announcement {
     position: fixed;
     top: 95px;
@@ -406,7 +406,6 @@ iframe {
     transform: translateX(-50%) translateY(-5px);
 }
 
-/* Close button style */
 .announcement-close {
     background: none;
     border: none;
@@ -415,6 +414,12 @@ iframe {
     cursor: pointer;
     padding: 10px;
     transition: color 0.2s ease;
+}
+
+.announcement-hide {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-10px);
+    pointer-events: none;
 }
 
 .announcement-close:hover {
