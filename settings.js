@@ -2,6 +2,25 @@ document.addEventListener("DOMContentLoaded", function () {
     const body = document.body;
     const dropdown = document.getElementById('style-dropdown');
     const storedBg = localStorage.getItem("customBackground");
+    const logo = document.querySelector(".logo");
+    const toggleLogoCheckbox = document.getElementById("toggle-logo");
+
+    // Load the saved state for the logo
+    const isLogoHidden = localStorage.getItem("logoHidden") === "true";
+    if (toggleLogoCheckbox) {
+        toggleLogoCheckbox.checked = isLogoHidden;
+    }
+    if (logo) {
+        logo.style.display = isLogoHidden ? "none" : "block";
+    }
+
+    window.toggleLogo = function () {
+        const shouldHide = toggleLogoCheckbox.checked;
+        localStorage.setItem("logoHidden", shouldHide);
+        if (logo) {
+            logo.style.display = shouldHide ? "none" : "block";
+        }
+    };
 
     const isBase64 = (str) => {
         try {
