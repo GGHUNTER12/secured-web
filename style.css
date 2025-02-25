@@ -415,6 +415,71 @@ iframe {
     transition: color 0.2s ease;
 }
 
+/* Checkbox Container */
+.toggle-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.2rem;
+    color: white;
+    background: rgba(0, 0, 0, 0.05);
+    padding: 10px 20px;
+    border-radius: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: fit-content;
+    margin: 10px auto;
+}
+
+/* Checkbox Input (Hidden) */
+.toggle-container input {
+    display: none;
+}
+
+/* Custom Checkbox Style */
+.toggle-container .toggle-slider {
+    width: 50px;
+    height: 25px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 30px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+/* Slider Circle */
+.toggle-container .toggle-slider::before {
+    content: "";
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    background: white;
+    border-radius: 50%;
+    top: 50%;
+    left: 3px;
+    transform: translateY(-50%);
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Checked State */
+.toggle-container input:checked + .toggle-slider {
+    background: rgba(0, 255, 127, 0.5);
+}
+
+.toggle-container input:checked + .toggle-slider::before {
+    left: 25px;
+}
+
+/* Hover Effect */
+.toggle-container:hover {
+    background: rgba(0, 0, 0, 0.1);
+    transform: scale(1.05);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+
 .announcement-close:hover {
     color: purple;
 }
