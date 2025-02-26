@@ -129,9 +129,12 @@
 
                 if (searchQuery) {
                     if (isValidUrl(searchQuery)) {
+                        if (!searchQuery.startsWith('http')) {
+                            searchQuery = 'https://' + searchQuery;
+                        }
                         iframe.src = `https://secured-web-szvy.webs.vc/embed.html#${searchQuery}`;
                     } else {
-                        iframe.src = `https://secured-web-szvy.webs.vc/embed.html#https://duckduckgo.com/?t=h_&q=${encodeURIComponent(searchQuery)}`;
+                        iframe.src = `https://secured-web-szvy.webs.vc/embed.html#https://duckduckgo.com/?q=${encodeURIComponent(searchQuery)}`;
                     }
                 } else {
                     iframe.src = `https://secured-web-szvy.webs.vc/embed.html#https://duckduckgo.com/`;
@@ -144,17 +147,17 @@
             return pattern.test(str);
         }
 
+        function reloadIframe() {
+            let iframe = document.getElementById('app-iframe');
+            iframe.src = iframe.src;
+        }
+
         function goBack() {
-            alert('cant right now, have to fix');
+            window.history.back();
         }
 
         function goForward() {
-            alert('ima need to host my own proxy wait until then');
-        }
-
-        function reloadIframe() {
-            let iframe = document.getElementById('app-iframe');
-            iframe.src = iframe.src; // Reload iframe by resetting the src attribute
+            window.history.forward();
         }
 
         function goHome() {
@@ -172,17 +175,21 @@
         function updateFromUrl() {
             const urlParams = new URLSearchParams(window.location.search);
             let searchQuery = urlParams.get('q');
+            let iframe = document.getElementById('app-iframe');
 
             if (searchQuery) {
-                let iframe = document.getElementById('app-iframe');
+                searchQuery = decodeURIComponent(searchQuery).trim();
+                
                 if (isValidUrl(searchQuery)) {
-                    if (!searchQuery.startsWith('http://') && !searchQuery.startsWith('https://')) {
+                    if (!searchQuery.startsWith('http')) {
                         searchQuery = 'https://' + searchQuery;
                     }
                     iframe.src = `https://secured-web-szvy.webs.vc/embed.html#${searchQuery}`;
                 } else {
-                    iframe.src = `https://secured-web-szvy.webs.vc/embed.html#https://duckduckgo.com/?t=h_&q=${encodeURIComponent(searchQuery)}`;
+                    iframe.src = `https://secured-web-szvy.webs.vc/embed.html#https://duckduckgo.com/?q=${encodeURIComponent(searchQuery)}`;
                 }
+            } else {
+                iframe.src = `https://secured-web-szvy.webs.vc/embed.html#https://duckduckgo.com/`;
             }
         }
 
