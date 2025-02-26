@@ -5,7 +5,12 @@ const { createProxyMiddleware } = require("http-proxy-middleware");
 const app = express();
 app.use(cors());
 
-// Function to handle URL input
+// Simple logging for requests
+app.use((req, res, next) => {
+  console.log("Received request:", req.method, req.url);  // Logs all incoming requests
+  next();
+});
+
 function getTargetURL(input) {
   try {
     const decodedInput = decodeURIComponent(input);
@@ -14,17 +19,16 @@ function getTargetURL(input) {
   } catch (err) {
     console.error("Error processing URL:", err);
   }
-
+  
   return `https://www.google.com/search?q=${encodeURIComponent(input)}`;
 }
 
-// Proxy route
 app.use("/proxy", (req, res, next) => {
   const { q } = req.query;
   if (!q) return res.status(400).send("No query provided.");
   
   const targetURL = getTargetURL(q);
-  console.log("Proxying request to:", targetURL);
+  console.log("Proxying request to:", targetURL);  // Logs the target URL
 
   createProxyMiddleware({
     target: targetURL,
