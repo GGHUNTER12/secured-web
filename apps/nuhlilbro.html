@@ -98,8 +98,8 @@
 </head>
 <body>
     <div id="loading-screen">
-    <div class="loader"></div>
-</div>
+        <div class="loader"></div>
+    </div>
     
     <header class="top-menu">
         <div class="logo">
@@ -145,11 +145,11 @@
         }
 
         function goBack() {
-            alert('Back navigation is restricted due to cross-origin policy.');
+            alert('cant right now, have to fix');
         }
 
         function goForward() {
-            alert('Forward navigation is restricted due to cross-origin policy.');
+            alert('ima need to host my own proxy wait until then');
         }
 
         function reloadIframe() {
@@ -171,7 +171,7 @@
 
         function updateFromUrl() {
             const urlParams = new URLSearchParams(window.location.search);
-            const searchQuery = urlParams.get('q');
+            let searchQuery = urlParams.get('q');
 
             if (searchQuery) {
                 let iframe = document.getElementById('app-iframe');
@@ -200,7 +200,6 @@
             server: '1045821677583474808',
             channel: '1046287752032956537',
         });
-
     </script>
 </body>
 </html>
