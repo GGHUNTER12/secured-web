@@ -2,17 +2,17 @@
   "version": 2,
   "builds": [
     {
-      "src": "s/index.js",   // Points to the correct file inside 's' folder
-      "use": "@vercel/node"
+      "src": "s/index.js",  // Make sure your file is inside the 's' folder
+      "use": "@vercel/node"  // Tells Vercel to use Node.js runtime
     }
   ],
   "routes": [
     {
-      "src": "/proxy",
-      "dest": "s/index.js"    // Routes "/proxy" to your server
+      "src": "/proxy",         // Matches any URL starting with "/proxy"
+      "dest": "s/index.js"     // Directs it to the 'index.js' inside 's' folder
     },
     {
-      "src": "/proxy/(.*)",    // Handles any additional path in the proxy route
+      "src": "/proxy/(.*)",    // Matches anything after "/proxy" and routes it to index.js
       "dest": "s/index.js"
     }
   ]
