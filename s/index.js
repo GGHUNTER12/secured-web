@@ -1,16 +1,17 @@
-const express = require("express");
-const cors = require("cors");
-const { createProxyMiddleware } = require("http-proxy-middleware");
+const express = require('express');
+const cors = require('cors');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const app = express();
 app.use(cors());
 
-// Simple logging for requests
+// Simple logging to check incoming requests
 app.use((req, res, next) => {
-  console.log("Received request:", req.method, req.url);  // Logs all incoming requests
+  console.log('Received request:', req.method, req.url);
   next();
 });
 
+// Function to process input URL
 function getTargetURL(input) {
   try {
     const decodedInput = decodeURIComponent(input);
@@ -19,18 +20,18 @@ function getTargetURL(input) {
   } catch (err) {
     console.error("Error processing URL:", err);
   }
-  
   return `https://www.google.com/search?q=${encodeURIComponent(input)}`;
 }
 
-// Proxy route for /proxy
-app.use("/proxy", (req, res, next) => {
+// Handle proxy requests on "/proxy"
+app.use('/proxy', (req, res, next) => {
   const { q } = req.query;
-  if (!q) return res.status(400).send("No query provided.");
-  
-  const targetURL = getTargetURL(q);
-  console.log("Proxying request to:", targetURL);  // Logs the target URL
+  if (!q) return res.status(400).send('No query provided.');
 
+  const targetURL = getTargetURL(q);
+  console.log("Proxying request to:", targetURL);
+
+  // Set up the proxy middleware
   createProxyMiddleware({
     target: targetURL,
     changeOrigin: true,
@@ -38,9 +39,9 @@ app.use("/proxy", (req, res, next) => {
   })(req, res, next);
 });
 
-// Home route to verify server is working
-app.get("/", (req, res) => {
-  res.send("Proxy is running!");
+// Home route to verify the server is working
+app.get('/', (req, res) => {
+  res.send('Proxy is running!');
 });
 
-module.exports = app; // Export for Vercel
+module.exports = app;  // Export for Vercel
