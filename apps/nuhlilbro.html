@@ -7,136 +7,190 @@
     <link rel="icon" type="image/x-icon" href="/images/googlefavicon.ico">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600&display=swap">
     <link rel="stylesheet" href="/style.css">
-    <link rel="stylesheet" href="/menu.css">
 
     <style>
-        .center-box {
-            width: 80%;
-            max-width: 900px;
-            margin: 0 auto;
+        body {
+            margin: 0;
+            font-family: 'Lexend', sans-serif;
         }
-        #search-bar {
+
+        .top-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
             padding: 10px;
-            margin-bottom: 20px; /* Adds spacing below the search bar */
+            z-index: 100;
+            border-bottom: 2px solid #fff;
+            justify-content: flex-start;
+            box-sizing: border-box;
         }
+
+        .logo a {
+            color: #fff;
+            font-size: 24px;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+
+        .logo a:hover {
+            color: #bc3aef;
+        }
+
+        #search-bar {
+            width: 60%;
+            padding: 10px;
+            margin: 0 10px;
+        }
+
+        .button {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px;
+            margin: 0 5px;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .button:hover {
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+
         .iframe-container {
             width: 100%;
-            height: 600px; /* Increases the height of the iframe */
+            height: 100vh;
+            position: absolute;
+            top: 60px;
+            left: 0;
         }
+
         #app-iframe {
             width: 100%;
-            height: 100%; /* Makes the iframe take up the full height of its container */
-            border: none; /* Removes iframe border */
+            height: 100%;
+            border: none;
+        }
+
+        .button-container {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            z-index: 10;
+        }
+
+        .profile-button {
+            margin-left: auto;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        #menu-profile-pic {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
         }
     </style>
 </head>
 <body>
-    <div id="particles-js"></div>
-
-    <!-- Top Floating Menu -->
     <header class="top-menu">
         <div class="logo">
             <a href="/index.html">SECURED WEB</a>
         </div>
-        <nav>
-            <ul>
-                <li><a href="/index.html" class="menu-button">🏠 Home</a></li>
-                <li><a href="/games.html" class="menu-button">🎮 Games</a></li>
-                <li><a href="/partners.html" class="menu-button">🤝 Partners</a></li>
-                <li><a href="/settings.html" class="menu-button">⚙️ Settings</a></li>
-                <li>
-                    <a href="/profile.html" class="profile-button">
-                        <img id="menu-profile-pic" src="https://www.mobile-calendar.com/img/main/user.webp" alt="Profile">
-                    </a>
-                </li>
-            </ul>
-        </nav>
+        <input type="text" id="search-bar" placeholder="Search or enter URL..." onkeydown="updateIframe(event)" />
+        <button onclick="goBack()" class="button">⬅️</button>
+        <button onclick="goForward()" class="button">➡️</button>
+        <button onclick="reloadIframe()" class="button">🔄</button>
+        <button onclick="goHome()" class="button">🏠</button>
+        <button onclick="goToGames()" class="button">🎮 games</button>
+        <button onclick="goToSettings()" class="button">⚙️ settings</button>
+        <a href="/profile.html" class="profile-button">
+            <img id="menu-profile-pic" src="https://www.mobile-calendar.com/img/main/user.webp" alt="Profile">
+        </a>
     </header>
 
-    <!-- Center Box -->
-    <div class="center-box">
-        <!-- Search Bar -->
-        <input type="text" id="search-bar" placeholder="Search or enter URL..." onkeydown="updateIframe(event)" />
-
-        <!-- Iframe Container -->
-        <div class="iframe-container">
-            <iframe id="app-iframe" src="https://secured-web-szvy.webs.vc/embed.html#https://duckduckgo.com/"></iframe>
-        </div>
-
-        <!-- Buttons -->
-        <div class="button-container">
-            <button onclick="reloadIframe()" class="button">🔄 Reload</button>
-            <button onclick="toggleFullscreen()" class="button">⛶ Fullscreen</button>
-        </div>
+    <div class="iframe-container">
+        <iframe id="app-iframe" src="https://secured-web-szvy.webs.vc/embed.html#https://duckduckgo.com/"></iframe>
     </div>
 
-    <script src="/particles.js"></script>
-    <script src="/app.js"></script>
-    <script src="/settings.js"></script>
-    <script src="/analytics.js"></script>
-<script>
-    // Function to update iframe based on search bar input when Enter is pressed
-    function updateIframe(event) {
-        if (event.key === 'Enter') {
-            let searchQuery = document.getElementById('search-bar').value.trim();
+    <script>
+        function updateIframe(event) {
+            if (event.key === 'Enter') {
+                let searchQuery = document.getElementById('search-bar').value.trim();
+                let iframe = document.getElementById('app-iframe');
+
+                if (searchQuery) {
+                    if (isValidUrl(searchQuery)) {
+                        iframe.src = `https://secured-web-szvy.webs.vc/embed.html#${searchQuery}`;
+                    } else {
+                        iframe.src = `https://secured-web-szvy.webs.vc/embed.html#https://duckduckgo.com/?t=h_&q=${encodeURIComponent(searchQuery)}`;
+                    }
+                } else {
+                    iframe.src = `https://secured-web-szvy.webs.vc/embed.html#https://duckduckgo.com/`;
+                }
+            }
+        }
+
+        function isValidUrl(str) {
+            let pattern = new RegExp('^(https?:\\/\\/)?([a-z0-9-]+\\.)+[a-z0-9]{2,6}(\\/[-a-z0-9%_\\+.~#?&//=]*)?$', 'i');
+            return pattern.test(str);
+        }
+
+        function goBack() {
+            alert('Back navigation is restricted due to cross-origin policy.');
+        }
+
+        function goForward() {
+            alert('Forward navigation is restricted due to cross-origin policy.');
+        }
+
+        function reloadIframe() {
             let iframe = document.getElementById('app-iframe');
+            iframe.src = iframe.src; // Reload iframe by resetting the src attribute
+        }
+
+        function goHome() {
+            window.location.href = '/index.html';
+        }
+
+        function goToGames() {
+            window.location.href = '/game.html';
+        }
+
+        function goToSettings() {
+            window.location.href = '/settings.html';
+        }
+
+        function updateFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const searchQuery = urlParams.get('q');
 
             if (searchQuery) {
-                // Check if the user input is a valid URL
+                let iframe = document.getElementById('app-iframe');
                 if (isValidUrl(searchQuery)) {
-                    // If the input is a valid URL, set it as the iframe source directly (no need to encode)
+                    if (!searchQuery.startsWith('http://') && !searchQuery.startsWith('https://')) {
+                        searchQuery = 'https://' + searchQuery;
+                    }
                     iframe.src = `https://secured-web-szvy.webs.vc/embed.html#${searchQuery}`;
                 } else {
-                    // If not a valid URL, treat it as a search query
                     iframe.src = `https://secured-web-szvy.webs.vc/embed.html#https://duckduckgo.com/?t=h_&q=${encodeURIComponent(searchQuery)}`;
                 }
-            } else {
-                // Default to DuckDuckGo search if no input
-                iframe.src = `https://secured-web-szvy.webs.vc/embed.html#https://duckduckgo.com/`;
             }
         }
-    }
 
-    // Function to check if the string is a valid URL
-    function isValidUrl(str) {
-        let pattern = new RegExp('^(https?:\\/\\/)?([a-z0-9-]+\\.)+[a-z0-9]{2,6}(\\/[-a-z0-9%_\\+.~#?&//=]*)?$', 'i');
-        return pattern.test(str);
-    }
+        window.onload = updateFromUrl;
+    </script>
 
-    // Function to check for query parameter and update iframe accordingly
-    function updateFromUrl() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const searchQuery = urlParams.get('q'); // Get the value of 'q'
-
-        if (searchQuery) {
-            let iframe = document.getElementById('app-iframe');
-            // Check if the query is a URL or a search term
-            if (isValidUrl(searchQuery)) {
-                // Make sure the URL starts with 'http://' or 'https://'
-                if (!searchQuery.startsWith('http://') && !searchQuery.startsWith('https://')) {
-                    searchQuery = 'https://' + searchQuery;
-                }
-                iframe.src = `https://secured-web-szvy.webs.vc/embed.html#${searchQuery}`;  // Directly use the URL
-            } else {
-                iframe.src = `https://secured-web-szvy.webs.vc/embed.html#https://duckduckgo.com/?t=h_&q=${encodeURIComponent(searchQuery)}`;
-            }
-        }
-    }
-
-    // Call the updateFromUrl function when the page loads to check for the 'q' parameter
-    window.onload = updateFromUrl;
-</script>
-
-    <!-- Crate Widget for Discord -->
     <script src="https://cdn.jsdelivr.net/npm/@widgetbot/crate@3" async defer> 
         new Crate({
             server: '1045821677583474808',
             channel: '1046287752032956537',
         });
 
-        alert("we do not host any of this servers, credit to the proxy creator we just repurpose them. also the search bar is for style lol")
-        
     </script>
 </body>
 </html>
