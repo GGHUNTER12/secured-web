@@ -23,7 +23,7 @@
 <body>
     <div id="particles-js"></div>
 
-        <!-- Top Floating Menu -->
+    <!-- Top Floating Menu -->
     <header class="top-menu">
         <div class="logo">
             <a href="/index.html">SECURED WEB</a>
@@ -35,10 +35,10 @@
                 <li><a href="/partners.html" class="menu-button">🤝 Partners</a></li>
                 <li><a href="/settings.html" class="menu-button">⚙️ Settings</a></li>
                 <li>
-                <a href="/profile.html" class="profile-button">
-                <img id="menu-profile-pic" src="https://www.mobile-calendar.com/img/main/user.webp" alt="Profile">
-                </a>
-              </li>
+                    <a href="/profile.html" class="profile-button">
+                        <img id="menu-profile-pic" src="https://www.mobile-calendar.com/img/main/user.webp" alt="Profile">
+                    </a>
+                </li>
             </ul>
         </nav>
     </header>
@@ -88,11 +88,7 @@
                 if (searchQuery) {
                     // Check if the user input is a valid URL
                     if (isValidUrl(searchQuery)) {
-                        // If not starting with https:// or http://, prepend https://
-                        if (!searchQuery.startsWith('http://') && !searchQuery.startsWith('https://')) {
-                            searchQuery = 'https://' + searchQuery;
-                        }
-                        // Set iframe to the valid URL
+                        // If the input is a valid URL, set it as the iframe source
                         iframe.src = `https://secured-web-szvy.webs.vc/embed.html#${encodeURIComponent(searchQuery)}`;
                     } else {
                         // If not a valid URL, treat it as a search query
@@ -120,6 +116,7 @@
                 let iframe = document.getElementById('app-iframe');
                 // Check if the query is a URL or a search term
                 if (isValidUrl(searchQuery)) {
+                    // Make sure the URL starts with 'http://' or 'https://'
                     if (!searchQuery.startsWith('http://') && !searchQuery.startsWith('https://')) {
                         searchQuery = 'https://' + searchQuery;
                     }
