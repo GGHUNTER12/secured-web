@@ -1,10 +1,19 @@
 {
   "version": 2,
   "builds": [
-    { "src": "s/index.js", "use": "@vercel/node" }
+    {
+      "src": "s/index.js",   // Points to the correct file inside 's' folder
+      "use": "@vercel/node"
+    }
   ],
   "routes": [
-    { "src": "/proxy", "dest": "s/index.js" },
-    { "src": "/proxy/(.*)", "dest": "s/index.js" }  // Catch-all route
+    {
+      "src": "/proxy",
+      "dest": "s/index.js"    // Routes "/proxy" to your server
+    },
+    {
+      "src": "/proxy/(.*)",    // Handles any additional path in the proxy route
+      "dest": "s/index.js"
+    }
   ]
 }
