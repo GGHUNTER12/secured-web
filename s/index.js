@@ -23,6 +23,7 @@ function getTargetURL(input) {
   return `https://www.google.com/search?q=${encodeURIComponent(input)}`;
 }
 
+// Proxy route for /proxy
 app.use("/proxy", (req, res, next) => {
   const { q } = req.query;
   if (!q) return res.status(400).send("No query provided.");
