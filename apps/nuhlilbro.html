@@ -23,7 +23,7 @@
 <body>
     <div id="particles-js"></div>
 
-    <!-- Top Floating Menu -->
+        <!-- Top Floating Menu -->
     <header class="top-menu">
         <div class="logo">
             <a href="/index.html">SECURED WEB</a>
@@ -110,6 +110,28 @@
             let pattern = new RegExp('^(https?:\\/\\/)?([a-z0-9-]+\\.)+[a-z0-9]{2,6}(\\/[-a-z0-9%_\\+.~#?&//=]*)?$', 'i');
             return pattern.test(str);
         }
+
+        // Function to check for query parameter and update iframe accordingly
+        function updateFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const searchQuery = urlParams.get('q'); // Get the value of 'q'
+
+            if (searchQuery) {
+                let iframe = document.getElementById('app-iframe');
+                // Check if the query is a URL or a search term
+                if (isValidUrl(searchQuery)) {
+                    if (!searchQuery.startsWith('http://') && !searchQuery.startsWith('https://')) {
+                        searchQuery = 'https://' + searchQuery;
+                    }
+                    iframe.src = `https://secured-web-szvy.webs.vc/embed.html#${encodeURIComponent(searchQuery)}`;
+                } else {
+                    iframe.src = `https://secured-web-szvy.webs.vc/embed.html#https://duckduckgo.com/?t=h_&q=${encodeURIComponent(searchQuery)}`;
+                }
+            }
+        }
+
+        // Call the updateFromUrl function when the page loads to check for the 'q' parameter
+        window.onload = updateFromUrl;
     </script>
 
     <!-- Crate Widget for Discord -->
