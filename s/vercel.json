@@ -1,5 +1,10 @@
 {
   "version": 2,
-  "builds": [{ "src": "s/index.js", "use": "@vercel/node" }],
-  "routes": [{ "src": "/(.*)", "dest": "s/index.js" }]
+  "builds": [
+    { "src": "s/index.js", "use": "@vercel/node" }
+  ],
+  "routes": [
+    { "src": "/proxy", "dest": "s/index.js" },
+    { "src": "/proxy/(.*)", "dest": "s/index.js" }  // Catch-all route
+  ]
 }
