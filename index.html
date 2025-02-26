@@ -94,12 +94,14 @@
     </div>
 
     <script>
-        // Search bar redirect on Enter key press
-        document.getElementById('search-web').addEventListener('keydown', function(event) {
-            if (event.key === 'Enter') {
-                window.location.href = '/apps/nuhlilbro.html';
-            }
-        });
+        
+    document.getElementById('search-web').addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            const userSearch = document.getElementById('search-web').value;
+            window.location.href = `/apps/nuhlilbro.html?q=${encodeURIComponent(userSearch)}`; 
+        }
+    });
+        
     </script>
 
     <script src="particles.js"></script>
